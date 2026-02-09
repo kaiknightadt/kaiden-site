@@ -645,6 +645,24 @@ nav {
   color: white;
 }
 
+.badge-price {
+  position: absolute;
+  bottom: 1.2rem;
+  right: 1.2rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.5);
+  z-index: 3;
+  letter-spacing: 1px;
+}
+
+.badge-price.price-3 { color: #FFD700; border-color: rgba(255,215,0,0.25); background: rgba(255,215,0,0.08); }
+
 /* ===== COMING SOON / IN PROGRESS ===== */
 .coming-soon {
   padding: 6rem 2rem;
@@ -906,7 +924,7 @@ nav {
   background: linear-gradient(145deg, rgba(42,42,62,0.8), rgba(30,30,48,0.9));
   border: 1px solid rgba(255,77,125,0.1);
   border-radius: 20px;
-  padding: 2rem;
+  padding: 2rem 2rem 3.5rem 2rem;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   overflow: hidden;
@@ -1714,6 +1732,7 @@ footer a {
 
     <div class="project-card reveal" onclick="openModal('boardai')">
       <span class="project-badge badge-favori">⭐ Favori</span>
+      <span class="badge-price price-3">€€€</span>
       <span class="project-card-click-hint">Voir le projet →</span>
       <div class="project-icon">🎯</div>
       <h3 class="project-card-title">Board AI</h3>
@@ -1727,6 +1746,7 @@ footer a {
     </div>
 
     <div class="project-card reveal" onclick="openModal('vocal')">
+      <span class="badge-price">€€</span>
       <span class="project-card-click-hint">Voir le projet →</span>
       <div class="project-icon">🎙️</div>
       <h3 class="project-card-title">Agent Vocal Telegram</h3>
@@ -1740,7 +1760,7 @@ footer a {
     </div>
 
     <div class="project-card reveal" onclick="openModal('linkibara')">
-      <span class="project-card-click-hint">Voir le projet →</span>
+      <span class="badge-price price-3">€€€</span>      <span class="project-card-click-hint">Voir le projet →</span>
       <div class="project-icon">🔗</div>
       <h3 class="project-card-title">LinkiBara</h3>
       <p class="project-tagline">Ton coach en prospection LinkedIn</p>
@@ -1753,7 +1773,7 @@ footer a {
     </div>
 
     <div class="project-card reveal" onclick="openModal('leveinard')">
-      <span class="project-card-click-hint">Voir le projet →</span>
+      <span class="badge-price">€€</span>      <span class="project-card-click-hint">Voir le projet →</span>
       <div class="project-icon">💊</div>
       <h3 class="project-card-title">Leveinard</h3>
       <p class="project-tagline">La santé de ta famille, centralisée</p>
@@ -1766,7 +1786,7 @@ footer a {
     </div>
 
     <div class="project-card reveal" onclick="openModal('milarepa')">
-      <span class="project-card-click-hint">Voir le projet →</span>
+      <span class="badge-price price-3">€€€</span>      <span class="project-card-click-hint">Voir le projet →</span>
       <div class="project-icon">🧘</div>
       <h3 class="project-card-title">Milarepa</h3>
       <p class="project-tagline">Converse avec un maître spirituel tibétain</p>
@@ -1779,7 +1799,7 @@ footer a {
     </div>
 
     <div class="project-card reveal" onclick="openModal('declic')">
-      <span class="project-card-click-hint">Voir le projet →</span>
+      <span class="badge-price">€</span>      <span class="project-card-click-hint">Voir le projet →</span>
       <div class="project-icon">📸</div>
       <h3 class="project-card-title">Déclic</h3>
       <p class="project-tagline">Tes photos racontent une histoire</p>
@@ -1792,7 +1812,7 @@ footer a {
     </div>
 
     <div class="project-card reveal" onclick="openModal('auberge')">
-      <span class="project-card-click-hint">Voir le projet →</span>
+      <span class="badge-price">€</span>      <span class="project-card-click-hint">Voir le projet →</span>
       <div class="project-icon">🏨</div>
       <h3 class="project-card-title">Auberge du Trône</h3>
       <p class="project-tagline">Vitrine digitale pour l'hôtellerie</p>
