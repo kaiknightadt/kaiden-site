@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kaiden — Diagnostic Business Gratuit</title>
+  <meta name="description" content="Découvre combien de temps et d'argent tu pourrais économiser grâce à l'automatisation et aux outils sur mesure. Diagnostic gratuit par Kaiden." />
+  <meta property="og:title" content="Kaiden — Diagnostic Business Gratuit" />
+  <meta property="og:description" content="Tu as l'idée. Je crée la solution. Diagnostic gratuit en 2 minutes." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍰</text></svg>" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#0A0A0F;overflow-x:hidden;font-family:'DM Sans',sans-serif;color:white}
+    @keyframes fl0{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-40px) scale(1.5)}}
+    @keyframes fl1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-20px,30px) scale(.8)}}
+    @keyframes fl2{0%,100%{transform:translate(0,0) scale(1.2)}50%{transform:translate(15px,20px) scale(.6)}}
+    @keyframes bounceIn{0%{transform:scale(0)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+    @keyframes pulse{0%,80%,100%{transform:scale(.6);opacity:.3}40%{transform:scale(1);opacity:1}}
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+const { useState, useEffect } = React;
+
+const CALENDLY_URL = "https://calendly.com/kaidenvialle/echange-strategique";
+const SITE_URL = "https://kpibara.netlify.app";
+
+const SECTORS = [
+  { id: "ecommerce", label: "E-commerce", icon: "🛒" },
+  { id: "coaching", label: "Coaching / Formation", icon: "🎯" },
+  { id: "services", label: "Prestation de services", icon: "💼" },
+  { id: "sante", label: "Santé / Bien-être", icon: "🧘" },
+  { id: "restauration", label: "Restauration / Food", icon: "🍽️" },
+  { id: "immobilier", label: "Immobilier", icon: "🏠" },
+  { id: "tech", label: "Tech / SaaS", icon: "💻" },
+  { id: "autre", label: "Autre", icon: "✨" },
+];
+
+const PAIN_POINTS = [
+  { id: "emails", label: "Tri & réponses emails", hours: 1.5, icon: "📧" },
+  { id: "factures", label: "Facturation & devis", hours: 2, icon: "📄" },
+  { id: "social", label: "Réseaux sociaux", hours: 2.5, icon: "📱" },
+  { id: "rdv", label: "Prise de RDV clients", hours: 1, icon: "📅" },
+  { id: "relances", label: "Relances clients", hours: 1.5, icon: "🔔" },
+  { id: "reporting", label: "Reporting & KPIs", hours: 2, icon: "📊" },
+  { id: "onboarding", label: "Onboarding clients", hours: 2, icon: "🤝" },
+  { id: "crm", label: "Mise à jour CRM", hours: 1.5, icon: "🗂️" },
+  { id: "contenu", label: "Création de contenu", hours: 3, icon: "✍️" },
+  { id: "admin", label: "Tâches administratives", hours: 2, icon: "📋" },
+];
+
+const TOOLS = [
+  { id: "excel", label: "Excel / Sheets", icon: "📗" },
+  { id: "gmail", label: "Gmail / Outlook", icon: "📬" },
+  { id: "notion", label: "Notion", icon: "📝" },
+  { id: "crm_tool", label: "CRM (HubSpot, Pipedrive...)", icon: "🔄" },
+  { id: "canva", label: "Canva", icon: "🎨" },
+  { id: "wordpress", label: "WordPress / Wix", icon: "🌐" },
+  { id: "stripe", label: "Stripe / PayPal", icon: "💳" },
+  { id: "calendly", label: "Calendly / Cal.com", icon: "📆" },
+  { id: "slack", label: "Slack / Teams", icon: "💬" },
+  { id: "rien", label: "Pas d'outil spécifique", icon: "🤷" },
+];
+
+const TEAM_SIZES = [
+  { id: "solo", label: "Solo", desc: "Juste moi" },
+  { id: "small", label: "2-5", desc: "Petite équipe" },
+  { id: "medium", label: "6-15", desc: "Équipe moyenne" },
+  { id: "large", label: "15+", desc: "Grande équipe" },
+];
+
+const BUDGETS = [
+  { id: "0-50k", label: "< 50K€" },
+  { id: "50-150k", label: "50K - 150K€" },
+  { id: "150-500k", label: "150K - 500K€" },
+  { id: "500k+", label: "500K€+" },
+];
+
+const SECTOR_APPS = {
+  ecommerce: { title: "Ton back-office e-commerce sur mesure", subtitle: "Fini les 5 onglets ouverts en permanence", features: [{ icon: "📦", label: "Suivi commandes en temps réel" }, { icon: "📊", label: "Dashboard CA & marges" }, { icon: "🔔", label: "Alertes stock automatiques" }, { icon: "📧", label: "Relances paniers abandonnés" }] },
+  coaching: { title: "Ton appli de gestion formation", subtitle: "Tout ton business coaching en un seul endroit", features: [{ icon: "👥", label: "Suivi élèves & progression" }, { icon: "📅", label: "Planning & réservations auto" }, { icon: "💳", label: "Paiements & factures intégrés" }, { icon: "📈", label: "Taux complétion & satisfaction" }] },
+  services: { title: "Ton CRM & gestion de projets intégré", subtitle: "Plus besoin de payer 3 abonnements séparés", features: [{ icon: "🗂️", label: "Pipeline clients visuel" }, { icon: "⏱️", label: "Suivi temps & rentabilité" }, { icon: "📄", label: "Devis → Facture en 1 clic" }, { icon: "🤖", label: "Relances automatiques" }] },
+  sante: { title: "Ton outil de gestion cabinet", subtitle: "Concentre-toi sur tes patients, pas sur l'admin", features: [{ icon: "📋", label: "Fiches patients intelligentes" }, { icon: "📅", label: "Prise de RDV en ligne" }, { icon: "💊", label: "Suivi traitements & historique" }, { icon: "📱", label: "Rappels SMS automatiques" }] },
+  restauration: { title: "Ton tableau de bord resto", subtitle: "Gère ton établissement sans stress", features: [{ icon: "🍽️", label: "Gestion réservations" }, { icon: "📦", label: "Stocks & commandes fournisseurs" }, { icon: "👨‍🍳", label: "Planning équipe" }, { icon: "⭐", label: "Avis clients centralisés" }] },
+  immobilier: { title: "Ton CRM immobilier personnalisé", subtitle: "Chaque lead suivi, aucune opportunité ratée", features: [{ icon: "🏠", label: "Portefeuille biens & matching" }, { icon: "👤", label: "Suivi acquéreurs automatisé" }, { icon: "📸", label: "Diffusion annonces multi-portails" }, { icon: "📊", label: "Reporting performance agent" }] },
+  tech: { title: "Ton dashboard ops tout-en-un", subtitle: "Metrics, tickets, déploiements — un seul écran", features: [{ icon: "🐛", label: "Tickets & bug tracking" }, { icon: "📈", label: "Métriques SaaS en temps réel" }, { icon: "🔄", label: "CI/CD & statuts déploiement" }, { icon: "💬", label: "Feedback utilisateurs centralisé" }] },
+  autre: { title: "Ton application métier sur mesure", subtitle: "Conçue exactement pour ta façon de travailler", features: [{ icon: "🧩", label: "Fonctionnalités à la carte" }, { icon: "🔗", label: "Connecté à tes outils existants" }, { icon: "📊", label: "Dashboard personnalisé" }, { icon: "🤖", label: "Automatisations intelligentes" }] },
+};
+
+const S = { font: "'DM Sans',sans-serif", fontH: "'Syne',sans-serif", pink: "#FF6B9D", pinkDark: "#FF3D7F", gold: "#FFD700", green: "#4ADE80" };
+
+function Particles() {
+  return React.createElement("div", { style: { position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0, overflow: "hidden" } },
+    Array.from({ length: 16 }).map((_, i) =>
+      React.createElement("div", { key: i, style: { position: "absolute", width: `${Math.random()*5+2}px`, height: `${Math.random()*5+2}px`, borderRadius: "50%", background: `rgba(255,${Math.floor(Math.random()*100+80)},${Math.floor(Math.random()*80+140)},${Math.random()*0.2+0.05})`, left: `${Math.random()*100}%`, top: `${Math.random()*100}%`, animation: `fl${i%3} ${Math.random()*10+15}s ease-in-out infinite`, animationDelay: `${Math.random()*5}s` } })
+    )
+  );
+}
+
+function ProgressBar({ step, total }) {
+  return <div style={{width:"100%",height:"4px",background:"rgba(255,255,255,0.08)",borderRadius:"2px",overflow:"hidden",marginBottom:"32px"}}><div style={{width:`${(step/total)*100}%`,height:"100%",background:`linear-gradient(90deg,${S.pink},${S.pinkDark},${S.gold})`,borderRadius:"2px",transition:"width 0.6s cubic-bezier(0.4,0,0.2,1)"}}/></div>;
+}
+
+function ChipSelect({ items, selected, onToggle, multi = true }) {
+  return (
+    <div style={{display:"flex",flexWrap:"wrap",gap:"10px",justifyContent:"center"}}>
+      {items.map(item => {
+        const on = multi ? selected.includes(item.id) : selected === item.id;
+        return <button key={item.id} onClick={() => onToggle(item.id)} style={{display:"flex",alignItems:"center",gap:"8px",padding:"12px 20px",borderRadius:"50px",border:on?`2px solid ${S.pink}`:"2px solid rgba(255,255,255,0.12)",background:on?"rgba(255,107,157,0.12)":"rgba(255,255,255,0.04)",color:on?S.pink:"rgba(255,255,255,0.65)",cursor:"pointer",fontSize:"14px",fontFamily:S.font,fontWeight:on?"600":"400",transition:"all 0.3s ease",backdropFilter:"blur(10px)",transform:on?"scale(1.03)":"scale(1)"}}>
+          <span style={{fontSize:"18px"}}>{item.icon}</span><span>{item.label}</span>
+          {item.desc && <span style={{fontSize:"11px",opacity:0.6}}>{item.desc}</span>}
+        </button>;
+      })}
+    </div>
+  );
+}
+
+function AnimCounter({ end, duration = 2000, suffix = "" }) {
+  const [count, setCount] = useState(0);
+  useEffect(() => { let s=0; const st=end/(duration/16); const t=setInterval(()=>{s+=st;if(s>=end){setCount(end);clearInterval(t)}else setCount(Math.floor(s))},16); return ()=>clearInterval(t); }, [end, duration]);
+  return <span>{count.toLocaleString("fr-FR")}{suffix}</span>;
+}
+
+function AILoader({ progress, statusText }) {
+  return (
+    <div style={{textAlign:"center",padding:"60px 20px"}}>
+      <div style={{position:"relative",width:"120px",height:"120px",margin:"0 auto 32px"}}>
+        <svg viewBox="0 0 120 120" style={{width:"120px",height:"120px",transform:"rotate(-90deg)"}}>
+          <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="6"/>
+          <circle cx="60" cy="60" r="52" fill="none" stroke="url(#grad)" strokeWidth="6" strokeDasharray={`${progress*3.27} 327`} strokeLinecap="round" style={{transition:"stroke-dasharray 0.5s ease"}}/>
+          <defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stopColor={S.pink}/><stop offset="100%" stopColor={S.gold}/></linearGradient></defs>
+        </svg>
+        <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",fontSize:"28px",fontWeight:"700",color:S.pink,fontFamily:S.fontH}}>{progress}%</div>
+      </div>
+      <div style={{fontSize:"18px",color:"white",fontWeight:"600",marginBottom:"8px",fontFamily:S.fontH}}>Analyse en cours... 🍰</div>
+      <div style={{fontSize:"14px",color:"rgba(255,255,255,0.45)",fontFamily:S.font}}>{statusText}</div>
+      <div style={{display:"flex",justifyContent:"center",gap:"6px",marginTop:"24px"}}>
+        {[0,1,2].map(i => <div key={i} style={{width:"8px",height:"8px",borderRadius:"50%",background:S.pink,animation:`pulse 1.4s ease-in-out ${i*0.2}s infinite`}}/>)}
+      </div>
+    </div>
+  );
+}
+
+function ResultCard({ icon, title, value, subtitle, delay = 0 }) {
+  const [v, setV] = useState(false);
+  useEffect(() => { const t = setTimeout(()=>setV(true), delay); return ()=>clearTimeout(t); }, [delay]);
+  return (
+    <div style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:"20px",padding:"24px 12px",textAlign:"center",backdropFilter:"blur(20px)",opacity:v?1:0,transform:v?"translateY(0)":"translateY(20px)",transition:"all 0.6s cubic-bezier(0.4,0,0.2,1)",overflow:"hidden",minWidth:0}}>
+      <div style={{fontSize:"28px",marginBottom:"10px"}}>{icon}</div>
+      <div style={{fontSize:"10px",color:"rgba(255,255,255,0.45)",textTransform:"uppercase",letterSpacing:"1.5px",marginBottom:"8px",fontFamily:S.font,lineHeight:"1.3"}}>{title}</div>
+      <div style={{fontSize:"clamp(20px,3.5vw,28px)",fontWeight:"800",fontFamily:S.fontH,background:`linear-gradient(135deg,${S.pink},${S.gold})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",lineHeight:"1.2",overflowWrap:"break-word",wordBreak:"break-word"}}>{value}</div>
+      {subtitle && <div style={{fontSize:"11px",color:"rgba(255,255,255,0.35)",marginTop:"6px",fontFamily:S.font}}>{subtitle}</div>}
+    </div>
+  );
+}
+
+function AutoRec({ rec, index }) {
+  const [open, setOpen] = useState(false);
+  const [v, setV] = useState(false);
+  useEffect(() => { const t=setTimeout(()=>setV(true),200+index*150); return ()=>clearTimeout(t); }, [index]);
+  return (
+    <div onClick={()=>setOpen(!open)} style={{background:open?"rgba(255,107,157,0.06)":"rgba(255,255,255,0.025)",border:`1px solid ${open?"rgba(255,107,157,0.25)":"rgba(255,255,255,0.07)"}`,borderRadius:"16px",overflow:"hidden",transition:"all 0.4s ease",opacity:v?1:0,transform:v?"translateX(0)":"translateX(-20px)",cursor:"pointer"}}>
+      <div style={{padding:"20px 24px",display:"flex",alignItems:"center",gap:"16px"}}>
+        <div style={{width:"40px",height:"40px",borderRadius:"12px",flexShrink:0,background:"linear-gradient(135deg,rgba(255,107,157,0.15),rgba(255,215,0,0.15))",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"18px"}}>{rec.icon}</div>
+        <div style={{flex:1,minWidth:0}}>
+          <div style={{fontSize:"15px",fontWeight:"600",color:"white",fontFamily:S.fontH}}>{rec.title}</div>
+          <div style={{fontSize:"12px",color:S.pink,fontWeight:"500",marginTop:"2px",fontFamily:S.font}}>{rec.impact}</div>
+        </div>
+        <div style={{fontSize:"11px",padding:"4px 12px",borderRadius:"50px",flexShrink:0,background:rec.priority==="Haute"?"rgba(255,107,157,0.15)":"rgba(255,215,0,0.15)",color:rec.priority==="Haute"?S.pink:S.gold,fontWeight:"600",fontFamily:S.font}}>{rec.priority}</div>
+        <span style={{color:"rgba(255,255,255,0.25)",fontSize:"18px",transition:"transform 0.3s",transform:open?"rotate(180deg)":"rotate(0)",flexShrink:0}}>▾</span>
+      </div>
+      {open && (
+        <div style={{padding:"0 24px 20px",borderTop:"1px solid rgba(255,255,255,0.04)"}}>
+          <div style={{paddingTop:"16px",fontSize:"13px",lineHeight:"1.7",color:"rgba(255,255,255,0.55)",fontFamily:S.font}}>{rec.description}</div>
+          <div style={{display:"flex",gap:"8px",marginTop:"12px",flexWrap:"wrap"}}>
+            {rec.tools.map((t,i) => <span key={i} style={{fontSize:"11px",padding:"3px 10px",borderRadius:"50px",background:"rgba(255,255,255,0.05)",color:"rgba(255,255,255,0.45)",fontFamily:S.font}}>{t}</span>)}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function AppPreview({ sector }) {
+  const app = SECTOR_APPS[sector] || SECTOR_APPS.autre;
+  return (
+    <div style={{background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:"24px",overflow:"hidden",marginBottom:"40px"}}>
+      <div style={{padding:"20px 28px 16px",borderBottom:"1px solid rgba(255,255,255,0.06)",display:"flex",alignItems:"center",gap:"12px"}}>
+        <div style={{width:"10px",height:"10px",borderRadius:"50%",background:S.pink,boxShadow:"0 0 8px rgba(255,107,157,0.4)"}}/>
+        <span style={{fontSize:"11px",textTransform:"uppercase",letterSpacing:"3px",color:S.pink,fontWeight:"700",fontFamily:S.font}}>Aperçu — Ce que je peux te construire</span>
+      </div>
+      <div style={{padding:"32px 28px"}}>
+        <h3 style={{fontSize:"22px",fontWeight:"800",color:"white",margin:"0 0 6px",fontFamily:S.fontH}}>{app.title}</h3>
+        <p style={{fontSize:"14px",color:"rgba(255,255,255,0.5)",margin:"0 0 28px",fontFamily:S.font}}>{app.subtitle}</p>
+        <div style={{background:"rgba(0,0,0,0.3)",borderRadius:"16px",padding:"20px",border:"1px solid rgba(255,255,255,0.06)",marginBottom:"24px"}}>
+          <div style={{display:"flex",alignItems:"center",gap:"12px",marginBottom:"16px",paddingBottom:"12px",borderBottom:"1px solid rgba(255,255,255,0.06)"}}>
+            <div style={{width:"32px",height:"32px",borderRadius:"10px",background:`linear-gradient(135deg,${S.pink},${S.pinkDark})`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:"16px"}}>🍰</div>
+            <div>
+              <div style={{fontSize:"13px",fontWeight:"700",color:"white",fontFamily:S.fontH}}>Kaiden App</div>
+              <div style={{fontSize:"10px",color:"rgba(255,255,255,0.35)",fontFamily:S.font}}>Sur mesure • Premium & Sucré</div>
+            </div>
+            <div style={{marginLeft:"auto",display:"flex",gap:"6px"}}>
+              {["📊","⚙️"].map((e,i) => <div key={i} style={{width:"28px",height:"28px",borderRadius:"8px",background:"rgba(255,255,255,0.06)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"12px"}}>{e}</div>)}
+            </div>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"10px",marginBottom:"16px"}}>
+            {[{label:"Ce mois",val:"+23%",color:S.green},{label:"Clients actifs",val:"47",color:S.pink},{label:"Tâches auto",val:"156",color:S.gold}].map((s,i) => (
+              <div key={i} style={{background:"rgba(255,255,255,0.04)",borderRadius:"10px",padding:"12px",textAlign:"center"}}>
+                <div style={{fontSize:"10px",color:"rgba(255,255,255,0.4)",fontFamily:S.font,marginBottom:"4px"}}>{s.label}</div>
+                <div style={{fontSize:"18px",fontWeight:"800",color:s.color,fontFamily:S.fontH}}>{s.val}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{display:"flex",flexDirection:"column",gap:"6px"}}>
+            {[{text:"Nouveau lead — Marie D.",tag:"Chaud",c:S.pink},{text:"Facture #247 — Envoyée auto",tag:"Auto",c:S.green},{text:"Relance J+7 — Studio Bloom",tag:"En cours",c:S.gold}].map((item,i) => (
+              <div key={i} style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10px 14px",borderRadius:"10px",background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.04)"}}>
+                <span style={{fontSize:"12px",color:"rgba(255,255,255,0.6)",fontFamily:S.font}}>{item.text}</span>
+                <span style={{fontSize:"10px",padding:"2px 8px",borderRadius:"50px",fontWeight:"600",background:`${item.c}15`,color:item.c,fontFamily:S.font}}>{item.tag}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"10px"}}>
+          {app.features.map((f,i) => <div key={i} style={{display:"flex",alignItems:"center",gap:"10px",padding:"14px 16px",borderRadius:"12px",background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.05)"}}><span style={{fontSize:"20px"}}>{f.icon}</span><span style={{fontSize:"13px",color:"rgba(255,255,255,0.7)",fontFamily:S.font,fontWeight:"500"}}>{f.label}</span></div>)}
+        </div>
+        <div style={{marginTop:"24px",padding:"16px 20px",borderRadius:"12px",background:"linear-gradient(135deg,rgba(255,107,157,0.08),rgba(255,215,0,0.04))",border:"1px solid rgba(255,107,157,0.15)",display:"flex",alignItems:"center",gap:"12px"}}>
+          <span style={{fontSize:"24px"}}>💡</span>
+          <div>
+            <div style={{fontSize:"13px",fontWeight:"600",color:"white",fontFamily:S.font}}>Pourquoi payer 50-200€/mois pour un logiciel générique ?</div>
+            <div style={{fontSize:"12px",color:"rgba(255,255,255,0.45)",fontFamily:S.font,marginTop:"2px"}}>Un outil sur mesure, pensé pour TON business, livré en 2-4 semaines.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CTAButton({ children, onClick, disabled = false, size = "md" }) {
+  const pad = size==="lg"?"18px 48px":"16px 40px";
+  const fs = size==="lg"?"16px":"15px";
+  return <button onClick={onClick} disabled={disabled} style={{padding:pad,fontSize:fs,fontWeight:"700",border:"none",borderRadius:"60px",cursor:disabled?"not-allowed":"pointer",background:disabled?"rgba(255,255,255,0.08)":`linear-gradient(135deg,${S.pink},${S.pinkDark})`,color:disabled?"rgba(255,255,255,0.25)":"white",fontFamily:S.fontH,boxShadow:disabled?"none":"0 8px 32px rgba(255,107,157,0.4)",transition:"all 0.3s ease",opacity:disabled?0.5:1}}
+    onMouseEnter={e=>{if(!disabled){e.target.style.transform="translateY(-2px)";e.target.style.boxShadow="0 12px 40px rgba(255,107,157,0.5)"}}}
+    onMouseLeave={e=>{e.target.style.transform="translateY(0)";e.target.style.boxShadow=disabled?"none":"0 8px 32px rgba(255,107,157,0.4)"}}
+  >{children}</button>;
+}
+
+function App() {
+  const [step, setStep] = useState(0);
+  const [businessName, setBusinessName] = useState("");
+  const [sector, setSector] = useState("");
+  const [teamSize, setTeamSize] = useState("");
+  const [budget, setBudget] = useState("");
+  const [painPoints, setPainPoints] = useState([]);
+  const [tools, setTools] = useState([]);
+  const [biggestPain, setBiggestPain] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [loadProgress, setLoadProgress] = useState(0);
+  const [loadStatus, setLoadStatus] = useState("");
+  const [results, setResults] = useState(null);
+  const [aiInsight, setAiInsight] = useState("");
+
+  const totalSteps = 5;
+  const togglePP = (id) => setPainPoints(p => p.includes(id)?p.filter(x=>x!==id):[...p,id]);
+  const toggleT = (id) => setTools(p => p.includes(id)?p.filter(x=>x!==id):[...p,id]);
+
+  const calcResults = () => {
+    const sp = PAIN_POINTS.filter(p=>painPoints.includes(p.id));
+    const wh = sp.reduce((a,p)=>a+p.hours,0);
+    const mh = wh*4.33; const yh = mh*12;
+    const shm = Math.round(mh*0.65); const shy = Math.round(yh*0.65);
+    const hr = budget==="500k+"?80:budget==="150-500k"?60:budget==="50-150k"?45:35;
+    const ms = shy*hr; const roi = Math.round((ms/2000)*100);
+    return { wh, mh, shm, shy, ms, roi, hr };
+  };
+
+  const genRecs = () => {
+    const r = [];
+    if(painPoints.includes("emails"))r.push({icon:"📧",title:"Tri & réponse automatique d'emails",impact:"Gain estimé : 6h/semaine",priority:"Haute",description:"Workflow qui catégorise automatiquement tes emails entrants via IA, applique des labels, et génère des réponses pré-rédigées. Les emails importants sont redirigés vers Notion ou ton CRM.",tools:["Make","Gmail","ChatGPT","Notion"]});
+    if(painPoints.includes("social"))r.push({icon:"📱",title:"Pipeline de contenu social automatisé",impact:"Gain estimé : 10h/semaine",priority:"Haute",description:"Système complet : génération de posts à partir d'un brief, création visuelle automatisée, planification multi-plateforme, et reporting de performance automatique.",tools:["Make","ChatGPT","Canva API","Buffer"]});
+    if(painPoints.includes("factures"))r.push({icon:"💰",title:"Facturation & suivi de paiement automatisé",impact:"Gain estimé : 8h/semaine",priority:"Haute",description:"Du devis au paiement : génération auto de factures, envoi programmé, relances automatiques à J+7/J+15/J+30, mise à jour comptable et alertes en temps réel.",tools:["Make","Stripe","Sheets","Telegram"]});
+    if(painPoints.includes("rdv"))r.push({icon:"📅",title:"Système de rendez-vous intelligent",impact:"Gain estimé : 4h/semaine",priority:"Moyenne",description:"Flux automatisé complet : prise de RDV en ligne, confirmation, rappels, questionnaire pré-RDV, fiche client CRM, récapitulatif post-meeting.",tools:["Make","Calendly","Gmail","CRM"]});
+    if(painPoints.includes("relances"))r.push({icon:"🔔",title:"Relances intelligentes multi-canal",impact:"Gain estimé : 6h/semaine",priority:"Haute",description:"Séquences personnalisées : détection des prospects inactifs, relance email puis SMS puis appel planifié. Chaque message adapté au contexte client.",tools:["Make","CRM","ChatGPT","SMS"]});
+    if(painPoints.includes("reporting"))r.push({icon:"📊",title:"Dashboard KPI & reporting auto",impact:"Gain estimé : 8h/semaine",priority:"Moyenne",description:"Tableau de bord dynamique alimenté automatiquement : CA, conversion, satisfaction, réseaux sociaux. Rapport hebdo avec analyse des tendances.",tools:["Make","Sheets","Data Studio","Telegram"]});
+    if(painPoints.includes("onboarding"))r.push({icon:"🤝",title:"Onboarding client automatisé",impact:"Gain estimé : 5h/client",priority:"Moyenne",description:"Parcours d'accueil auto : kit de bienvenue, espaces projet, planification du kick-off, questionnaire de brief, accès outils, checklist.",tools:["Make","Notion","Drive","Gmail"]});
+    if(painPoints.includes("crm"))r.push({icon:"🗂️",title:"CRM auto-alimenté & enrichi",impact:"Gain estimé : 6h/semaine",priority:"Moyenne",description:"Ton CRM se met à jour seul : chaque interaction loguée automatiquement. Enrichissement des fiches, détection des opportunités et alertes churn.",tools:["Make","CRM","ChatGPT","Gmail"]});
+    if(painPoints.includes("contenu"))r.push({icon:"✍️",title:"Machine à contenu multi-format",impact:"Gain estimé : 12h/semaine",priority:"Haute",description:"Un brief vocal sur Telegram déclenche 5 formats : post LinkedIn, story Insta, article blog, script vidéo, newsletter. Planifié et publié auto.",tools:["Make","Claude","Telegram","Buffer"]});
+    if(painPoints.includes("admin"))r.push({icon:"📋",title:"Admin zéro friction",impact:"Gain estimé : 8h/semaine",priority:"Haute",description:"Fin des tâches admin répétitives : classement auto des documents, suivi deadlines, comptes-rendus automatiques, synchronisation de toutes tes apps.",tools:["Make","Notion","Drive","ChatGPT"]});
+    if(r.length===0)r.push({icon:"🚀",title:"Audit personnalisé de tes process",impact:"Optimisation sur-mesure",priority:"Haute",description:"Analyse approfondie de ton organisation pour identifier les quick wins et optimisations à fort impact.",tools:["Make","Notion"]});
+    return r;
+  };
+
+  const runAnalysis = async () => {
+    setLoading(true); setLoadProgress(0);
+    const statuses = ["Scan de ton écosystème business...","Cartographie des tâches automatisables...","Calcul du ROI potentiel...","Analyse de ton profil...","Génération des recommandations...","Finalisation du diagnostic..."];
+    const res = calcResults(); const recs = genRecs();
+    const sl = SECTORS.find(s=>s.id===sector)?.label||sector;
+    const pl = PAIN_POINTS.filter(p=>painPoints.includes(p.id)).map(p=>p.label);
+    const tl = TOOLS.filter(t=>tools.includes(t.id)).map(t=>t.label);
+
+    for(let i=0;i<=100;i+=2){await new Promise(r=>setTimeout(r,55));setLoadProgress(i);setLoadStatus(statuses[Math.min(Math.floor(i/18),statuses.length-1)])}
+
+    try {
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
+        method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,
+          messages:[{role:"user",content:`Tu es Kaiden, architecte de solutions IA, expert en automatisation business. Tu es premium et sucré. Génère un diagnostic court et percutant.
+
+Secteur : ${sl} | Équipe : ${teamSize} | CA : ${budget}
+Problèmes : ${pl.join(", ")} | Outils : ${tl.join(", ")}
+Plus gros problème : ${biggestPain || "non précisé"}
+
+RÈGLES STRICTES :
+- Exactement 4 lignes séparées par des sauts de ligne
+- Chaque ligne COMMENCE par un seul emoji suivi d un espace puis le texte
+- INTERDIT : markdown, **, ##, tirets, listes, guillemets, parenthèses
+- Tutoie la personne
+- Ligne 1 : constat empathique de leur situation spécifique
+- Ligne 2 : chiffre concret de temps ou argent perdu
+- Ligne 3 : la solution concrète en une phrase
+- Ligne 4 : phrase motivante qui donne envie de passer a l action
+- Max 25 mots par ligne
+- Ton : direct, expert, bienveillant, zéro bullshit`}]}),
+      });
+      const data = await response.json();
+      const text = data.content?.map(i=>i.text||"").join("\n")||"";
+      setAiInsight(text.replace(/\*\*/g,"").replace(/##/g,"").replace(/^- /gm,""));
+    } catch {
+      setAiInsight(`🔍 Ton organisation actuelle te coûte bien plus que tu ne le penses\n⏱️ ~${res.shm}h par mois partent dans des tâches qui pourraient tourner en automatique\n🚀 Avec les bons outils sur mesure tu récupères ${Math.round(res.shm/7)} jours par mois pour ce qui compte\n💪 Le plus dur c'est de faire le premier pas et tu viens de le faire`);
+    }
+    setResults({...res,recommendations:recs}); setLoading(false);
+  };
+
+  const canGo = () => { switch(step){case 1:return sector&&teamSize;case 2:return painPoints.length>=2;case 3:return tools.length>=1;default:return true} };
+  const reset = () => { setStep(0);setResults(null);setAiInsight("");setPainPoints([]);setTools([]);setBusinessName("");setSector("");setTeamSize("");setBudget("");setBiggestPain("") };
+
+  const inputStyle = {width:"100%",padding:"16px 20px",borderRadius:"14px",border:"2px solid rgba(255,255,255,0.1)",background:"rgba(255,255,255,0.04)",color:"white",fontSize:"16px",outline:"none",fontFamily:S.font,boxSizing:"border-box",transition:"border-color 0.3s"};
+  const labelStyle = {fontSize:"13px",color:"rgba(255,255,255,0.45)",display:"block",marginBottom:"8px",fontFamily:S.font};
+
+  const renderLanding = () => (
+    <div style={{textAlign:"center",maxWidth:"680px",margin:"0 auto",padding:"20px"}}>
+      <div style={{fontSize:"64px",marginBottom:"8px",animation:"bounceIn 0.8s cubic-bezier(0.68,-0.55,0.27,1.55)"}}>🍰</div>
+      <div style={{fontSize:"11px",textTransform:"uppercase",letterSpacing:"4px",color:S.pink,fontWeight:"600",marginBottom:"20px",fontFamily:S.font}}>Kaiden • Architecte de Solutions IA</div>
+      <h1 style={{fontSize:"clamp(30px,5vw,50px)",fontWeight:"800",lineHeight:"1.1",margin:"0 0 20px",fontFamily:S.fontH,background:`linear-gradient(135deg,#FFFFFF 0%,${S.pink} 50%,${S.gold} 100%)`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>Tu as l'idée.<br/>Je crée la solution.</h1>
+      <p style={{fontSize:"17px",lineHeight:"1.7",color:"rgba(255,255,255,0.55)",maxWidth:"520px",margin:"0 auto 12px",fontFamily:S.font}}>Dis-moi ce qui te prend la tête dans ton business.</p>
+      <p style={{fontSize:"15px",lineHeight:"1.7",color:"rgba(255,255,255,0.4)",maxWidth:"520px",margin:"0 auto 40px",fontFamily:S.font}}>En 2 minutes, je te montre ce qu'on peut automatiser et construire sur mesure pour toi. Premium & Sucré 🍪</p>
+      <CTAButton onClick={()=>setStep(1)} size="lg">C'est parti →</CTAButton>
+      <div style={{display:"flex",justifyContent:"center",gap:"36px",marginTop:"52px",flexWrap:"wrap"}}>
+        {[{n:"7+",l:"Apps livrées"},{n:"15+",l:"Client·es accompagné·es"},{n:"100%",l:"Sur mesure"}].map((item,i) => (
+          <div key={i} style={{textAlign:"center"}}>
+            <div style={{fontSize:"22px",fontWeight:"800",color:S.gold,fontFamily:S.fontH}}>{item.n}</div>
+            <div style={{fontSize:"12px",color:"rgba(255,255,255,0.35)",fontFamily:S.font}}>{item.l}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderStep1 = () => (
+    <div style={{maxWidth:"600px",margin:"0 auto"}}>
+      <ProgressBar step={1} total={totalSteps}/>
+      <div style={{textAlign:"center",marginBottom:"36px"}}>
+        <div style={{fontSize:"13px",color:S.pink,fontWeight:"600",marginBottom:"8px",fontFamily:S.font}}>Étape 1/3</div>
+        <h2 style={{fontSize:"28px",fontWeight:"800",color:"white",margin:0,fontFamily:S.fontH}}>Parle-moi de ton business 🍰</h2>
+      </div>
+      <div style={{marginBottom:"24px"}}>
+        <label style={labelStyle}>Nom de ton entreprise (optionnel)</label>
+        <input type="text" value={businessName} onChange={e=>setBusinessName(e.target.value)} placeholder="Ex: Ma Super Boîte" style={inputStyle}
+          onFocus={e=>e.target.style.borderColor="rgba(255,107,157,0.5)"} onBlur={e=>e.target.style.borderColor="rgba(255,255,255,0.1)"}/>
+      </div>
+      <div style={{marginBottom:"24px"}}>
+        <label style={{...labelStyle,marginBottom:"12px"}}>Ton secteur d'activité</label>
+        <ChipSelect items={SECTORS} selected={sector} onToggle={id=>setSector(id)} multi={false}/>
+      </div>
+      <div style={{marginBottom:"24px"}}>
+        <label style={{...labelStyle,marginBottom:"12px"}}>Taille de ton équipe</label>
+        <div style={{display:"flex",gap:"10px",justifyContent:"center",flexWrap:"wrap"}}>
+          {TEAM_SIZES.map(ts => <button key={ts.id} onClick={()=>setTeamSize(ts.id)} style={{padding:"14px 24px",borderRadius:"14px",cursor:"pointer",border:teamSize===ts.id?`2px solid ${S.pink}`:"2px solid rgba(255,255,255,0.1)",background:teamSize===ts.id?"rgba(255,107,157,0.1)":"rgba(255,255,255,0.03)",color:teamSize===ts.id?S.pink:"rgba(255,255,255,0.55)",fontFamily:S.font,fontSize:"14px",fontWeight:"600",transition:"all 0.3s"}}>
+            <div style={{fontSize:"20px",fontWeight:"800",fontFamily:S.fontH}}>{ts.label}</div>
+            <div style={{fontSize:"11px",opacity:0.7}}>{ts.desc}</div>
+          </button>)}
+        </div>
+      </div>
+      <div>
+        <label style={{...labelStyle,marginBottom:"12px"}}>Chiffre d'affaires annuel estimé</label>
+        <div style={{display:"flex",gap:"10px",justifyContent:"center",flexWrap:"wrap"}}>
+          {BUDGETS.map(b => <button key={b.id} onClick={()=>setBudget(b.id)} style={{padding:"12px 20px",borderRadius:"50px",cursor:"pointer",border:budget===b.id?`2px solid ${S.gold}`:"2px solid rgba(255,255,255,0.1)",background:budget===b.id?"rgba(255,215,0,0.08)":"rgba(255,255,255,0.03)",color:budget===b.id?S.gold:"rgba(255,255,255,0.55)",fontFamily:S.font,fontSize:"13px",fontWeight:"600",transition:"all 0.3s"}}>{b.label}</button>)}
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderStep2 = () => (
+    <div style={{maxWidth:"650px",margin:"0 auto"}}>
+      <ProgressBar step={2} total={totalSteps}/>
+      <div style={{textAlign:"center",marginBottom:"36px"}}>
+        <div style={{fontSize:"13px",color:S.pink,fontWeight:"600",marginBottom:"8px",fontFamily:S.font}}>Étape 2/3</div>
+        <h2 style={{fontSize:"28px",fontWeight:"800",color:"white",margin:"0 0 8px",fontFamily:S.fontH}}>Qu'est-ce qui te bouffe du temps ? 🍪</h2>
+        <p style={{fontSize:"14px",color:"rgba(255,255,255,0.45)",margin:0,fontFamily:S.font}}>Sélectionne au moins 2 tâches chronophages</p>
+      </div>
+      <ChipSelect items={PAIN_POINTS} selected={painPoints} onToggle={togglePP}/>
+      {painPoints.length > 0 && (
+        <div style={{marginTop:"32px",padding:"20px",borderRadius:"16px",background:"rgba(255,107,157,0.05)",border:"1px solid rgba(255,107,157,0.12)"}}>
+          <div style={{fontSize:"13px",color:"rgba(255,255,255,0.45)",marginBottom:"8px",fontFamily:S.font}}>⏱️ Temps estimé perdu par semaine :</div>
+          <div style={{fontSize:"32px",fontWeight:"800",color:S.pink,fontFamily:S.fontH}}>~{PAIN_POINTS.filter(p=>painPoints.includes(p.id)).reduce((a,p)=>a+p.hours,0).toFixed(1)}h / semaine</div>
+        </div>
+      )}
+    </div>
+  );
+
+  const renderStep3 = () => (
+    <div style={{maxWidth:"650px",margin:"0 auto"}}>
+      <ProgressBar step={3} total={totalSteps}/>
+      <div style={{textAlign:"center",marginBottom:"36px"}}>
+        <div style={{fontSize:"13px",color:S.pink,fontWeight:"600",marginBottom:"8px",fontFamily:S.font}}>Étape 3/3</div>
+        <h2 style={{fontSize:"28px",fontWeight:"800",color:"white",margin:"0 0 8px",fontFamily:S.fontH}}>Tes outils actuels</h2>
+        <p style={{fontSize:"14px",color:"rgba(255,255,255,0.45)",margin:0,fontFamily:S.font}}>Qu'est-ce que tu utilises au quotidien ?</p>
+      </div>
+      <ChipSelect items={TOOLS} selected={tools} onToggle={toggleT}/>
+      <div style={{marginTop:"32px"}}>
+        <label style={labelStyle}>En une phrase, c'est quoi ton plus gros problème au quotidien ? (optionnel)</label>
+        <textarea value={biggestPain} onChange={e=>setBiggestPain(e.target.value)} placeholder="Ex: Je passe 3h par jour à répondre aux mêmes emails..." rows={3}
+          style={{...inputStyle,fontSize:"14px",resize:"vertical"}}
+          onFocus={e=>e.target.style.borderColor="rgba(255,107,157,0.5)"} onBlur={e=>e.target.style.borderColor="rgba(255,255,255,0.1)"}/>
+      </div>
+    </div>
+  );
+
+  const renderResults = () => {
+    if(!results) return null;
+    const lines = aiInsight.split("\n").filter(l=>l.trim());
+    return (
+      <div style={{maxWidth:"700px",margin:"0 auto"}}>
+        <div style={{textAlign:"center",marginBottom:"40px"}}>
+          <div style={{fontSize:"48px",marginBottom:"12px"}}>🍰✨</div>
+          <h2 style={{fontSize:"clamp(24px,4vw,34px)",fontWeight:"800",margin:"0 0 12px",fontFamily:S.fontH,background:`linear-gradient(135deg,#FFFFFF,${S.pink})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>
+            {businessName ? `Diagnostic — ${businessName}` : "Ton diagnostic personnalisé"}
+          </h2>
+          <div style={{fontSize:"11px",textTransform:"uppercase",letterSpacing:"3px",color:"rgba(255,255,255,0.35)",fontFamily:S.font}}>
+            Kaiden × Solutions sur mesure • {new Date().toLocaleDateString("fr-FR")}
+          </div>
+        </div>
+
+        {lines.length > 0 && (
+          <div style={{background:"linear-gradient(135deg,rgba(255,107,157,0.06),rgba(255,215,0,0.03))",border:"1px solid rgba(255,107,157,0.15)",borderRadius:"20px",padding:"28px",marginBottom:"32px",position:"relative"}}>
+            <div style={{position:"absolute",top:"-12px",left:"24px",background:`linear-gradient(135deg,${S.pink},${S.pinkDark})`,padding:"4px 14px",borderRadius:"50px",fontSize:"11px",fontWeight:"700",color:"white",fontFamily:S.font}}>🍰 Ce que ton business nous dit</div>
+            <div style={{display:"flex",flexDirection:"column",gap:"14px",marginTop:"8px"}}>
+              {lines.map((line,i) => (
+                <div key={i} style={{display:"flex",alignItems:"flex-start",gap:"12px",padding:"12px 16px",borderRadius:"12px",background:i===0?"rgba(255,255,255,0.04)":"transparent",borderLeft:i===lines.length-1?`3px solid ${S.gold}`:"3px solid rgba(255,255,255,0.06)"}}>
+                  <span style={{fontSize:"15px",lineHeight:"1.7",color:i===lines.length-1?"rgba(255,255,255,0.9)":"rgba(255,255,255,0.65)",fontFamily:S.font,fontWeight:i===lines.length-1?"600":"400"}}>{line}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:"14px",marginBottom:"40px"}}>
+          <ResultCard icon="⏱️" title="Heures récupérées / mois" value={<AnimCounter end={results.shm} suffix="h"/>} subtitle="automatisables" delay={100}/>
+          <ResultCard icon="💸" title="Économie annuelle" value={<AnimCounter end={results.ms} suffix="€"/>} subtitle={`valorisé à ${results.hr}€/h`} delay={300}/>
+          <ResultCard icon="📈" title="ROI estimé" value={<AnimCounter end={results.roi} suffix="%"/>} subtitle="sur 12 mois" delay={500}/>
+          <ResultCard icon="🚀" title="Jours libérés / an" value={<span><AnimCounter end={Math.round(results.shy/7)}/> jours</span>} subtitle="pour te développer" delay={700}/>
+        </div>
+
+        <div style={{marginBottom:"40px"}}>
+          <h3 style={{fontSize:"20px",fontWeight:"700",color:"white",marginBottom:"20px",fontFamily:S.fontH}}>🎯 Automatisations recommandées</h3>
+          <div style={{display:"flex",flexDirection:"column",gap:"12px"}}>
+            {results.recommendations.map((rec,i) => <AutoRec key={i} rec={rec} index={i}/>)}
+          </div>
+        </div>
+
+        <AppPreview sector={sector||"autre"}/>
+
+        <div style={{background:"linear-gradient(135deg,rgba(255,107,157,0.1),rgba(255,215,0,0.06))",border:"1px solid rgba(255,107,157,0.2)",borderRadius:"24px",padding:"40px",textAlign:"center"}}>
+          <div style={{fontSize:"36px",marginBottom:"12px"}}>🍰</div>
+          <h3 style={{fontSize:"24px",fontWeight:"800",color:"white",margin:"0 0 12px",fontFamily:S.fontH}}>On le construit ensemble ?</h3>
+          <p style={{fontSize:"15px",color:"rgba(255,255,255,0.55)",lineHeight:"1.7",margin:"0 0 28px",fontFamily:S.font}}>Tu me dis ce qui te saoule.<br/>Je trouve la solution et je te livre un produit sur mesure en 2 à 4 semaines.</p>
+          <CTAButton onClick={()=>window.open(CALENDLY_URL,"_blank")} size="lg">Parlons de ton projet 🚀</CTAButton>
+          <div style={{fontSize:"12px",color:"rgba(255,255,255,0.3)",marginTop:"16px",fontFamily:S.font}}>📞 30 min • 100% gratuit • Sans engagement</div>
+        </div>
+
+        <div style={{display:"flex",justifyContent:"center",gap:"16px",marginTop:"32px",paddingBottom:"40px",flexWrap:"wrap"}}>
+          <button onClick={reset} style={{padding:"12px 24px",fontSize:"13px",fontWeight:"500",border:"1px solid rgba(255,255,255,0.12)",borderRadius:"50px",background:"transparent",color:"rgba(255,255,255,0.35)",cursor:"pointer",fontFamily:S.font,transition:"all 0.3s"}}
+            onMouseEnter={e=>e.target.style.color="rgba(255,255,255,0.6)"} onMouseLeave={e=>e.target.style.color="rgba(255,255,255,0.35)"}>↺ Refaire un diagnostic</button>
+          <a href={SITE_URL} style={{padding:"12px 24px",fontSize:"13px",fontWeight:"500",border:"1px solid rgba(255,107,157,0.2)",borderRadius:"50px",background:"transparent",color:S.pink,textDecoration:"none",fontFamily:S.font,transition:"all 0.3s",display:"inline-block"}}>Voir mes créations →</a>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div style={{minHeight:"100vh",background:"linear-gradient(145deg,#0A0A0F 0%,#12121F 40%,#1A0A15 70%,#0A0A0F 100%)",color:"white",position:"relative",overflow:"hidden"}}>
+      <Particles/>
+      <div style={{position:"fixed",width:"600px",height:"600px",borderRadius:"50%",background:"radial-gradient(circle,rgba(255,107,157,0.07) 0%,transparent 70%)",top:"-200px",right:"-200px",pointerEvents:"none"}}/>
+      <div style={{position:"fixed",width:"500px",height:"500px",borderRadius:"50%",background:"radial-gradient(circle,rgba(255,215,0,0.04) 0%,transparent 70%)",bottom:"-200px",left:"-200px",pointerEvents:"none"}}/>
+
+      <div style={{position:"relative",zIndex:1,padding:"40px 20px",maxWidth:"800px",margin:"0 auto"}}>
+        {step > 0 && step < 4 && (
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"32px"}}>
+            <button onClick={()=>setStep(s=>s-1)} style={{background:"none",border:"none",color:"rgba(255,255,255,0.35)",cursor:"pointer",fontSize:"14px",fontFamily:S.font}}>← Retour</button>
+            <a href={SITE_URL} style={{fontSize:"12px",color:"rgba(255,255,255,0.25)",fontFamily:S.font,textDecoration:"none"}}>🍰 Kaiden</a>
+          </div>
+        )}
+
+        {step === 0 && renderLanding()}
+        {step === 1 && renderStep1()}
+        {step === 2 && renderStep2()}
+        {step === 3 && renderStep3()}
+        {step === 4 && loading && <AILoader progress={loadProgress} statusText={loadStatus}/>}
+        {step === 4 && !loading && results && renderResults()}
+
+        {step >= 1 && step <= 3 && (
+          <div style={{textAlign:"center",marginTop:"40px"}}>
+            <CTAButton onClick={()=>{if(step===3){setStep(4);runAnalysis()}else setStep(s=>s+1)}} disabled={!canGo()}>
+              {step === 3 ? "🔍 Lancer l'analyse" : "Continuer →"}
+            </CTAButton>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App));
+  </script>
+</body>
+</html>
