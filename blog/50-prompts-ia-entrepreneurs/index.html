@@ -244,6 +244,7 @@ function unlockContent(){
   leads.push({prenom,email,source:'50-prompts-ia',date:new Date().toISOString()});
   localStorage.setItem('kpibara_blog_leads',JSON.stringify(leads));
   localStorage.setItem('kpibara_blog_unlocked','true');
+  fetch('/api/lead-capture',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prenom,email,source:'50 Prompts IA'})}).catch(()=>{});
   document.getElementById('emailGate').classList.add('unlocked');
   document.getElementById('emailGate').scrollIntoView({behavior:'smooth',block:'start'});
 }
