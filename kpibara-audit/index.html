@@ -31,6 +31,10 @@ const { useState, useEffect } = React;
 const CALENDLY_URL = "https://calendly.com/kaidenvialle/echange-strategique";
 const SITE_URL = "https://kpibara.netlify.app";
 
+// 👇 Colle ici ton URL webhook Make (ou Formspree, Zapier, etc.) pour recevoir les leads
+// Crée un scénario Make avec un trigger "Custom Webhook" et colle l'URL ici
+const WEBHOOK_URL = "";
+
 const SECTORS = [
   { id: "ecommerce", label: "E-commerce", icon: "🛒" },
   { id: "coaching", label: "Coaching / Formation", icon: "🎯" },
@@ -259,13 +263,17 @@ function App() {
   const [painPoints, setPainPoints] = useState([]);
   const [tools, setTools] = useState([]);
   const [biggestPain, setBiggestPain] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userFirstName, setUserFirstName] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [emailSending, setEmailSending] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadProgress, setLoadProgress] = useState(0);
   const [loadStatus, setLoadStatus] = useState("");
   const [results, setResults] = useState(null);
   const [aiInsight, setAiInsight] = useState("");
 
-  const totalSteps = 5;
+  const totalSteps = 6;
   const togglePP = (id) => setPainPoints(p => p.includes(id)?p.filter(x=>x!==id):[...p,id]);
   const toggleT = (id) => setTools(p => p.includes(id)?p.filter(x=>x!==id):[...p,id]);
 
@@ -336,8 +344,9 @@ RÈGLES STRICTES :
     setResults({...res,recommendations:recs}); setLoading(false);
   };
 
-  const canGo = () => { switch(step){case 1:return sector&&teamSize;case 2:return painPoints.length>=2;case 3:return tools.length>=1;default:return true} };
-  const reset = () => { setStep(0);setResults(null);setAiInsight("");setPainPoints([]);setTools([]);setBusinessName("");setSector("");setTeamSize("");setBudget("");setBiggestPain("") };
+  const isValidEmail = (e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+  const canGo = () => { switch(step){case 1:return sector&&teamSize;case 2:return painPoints.length>=2;case 3:return tools.length>=1;case 4:return isValidEmail(userEmail)&&userFirstName.trim().length>=2;default:return true} };
+  const reset = () => { setStep(0);setResults(null);setAiInsight("");setPainPoints([]);setTools([]);setBusinessName("");setSector("");setTeamSize("");setBudget("");setBiggestPain("");setUserEmail("");setUserFirstName("");setEmailError("") };
 
   const inputStyle = {width:"100%",padding:"16px 20px",borderRadius:"14px",border:"2px solid rgba(255,255,255,0.1)",background:"rgba(255,255,255,0.04)",color:"white",fontSize:"16px",outline:"none",fontFamily:S.font,boxSizing:"border-box",transition:"border-color 0.3s"};
   const labelStyle = {fontSize:"13px",color:"rgba(255,255,255,0.45)",display:"block",marginBottom:"8px",fontFamily:S.font};
@@ -431,6 +440,69 @@ RÈGLES STRICTES :
     </div>
   );
 
+  const submitLead = async () => {
+    if (!isValidEmail(userEmail)) { setEmailError("Entre une adresse email valide"); return; }
+    setEmailError(""); setEmailSending(true);
+    const leadData = {
+      email: userEmail, prenom: userFirstName, entreprise: businessName || "Non renseigné",
+      secteur: SECTORS.find(s=>s.id===sector)?.label || sector, equipe: teamSize, ca: budget,
+      problemes: PAIN_POINTS.filter(p=>painPoints.includes(p.id)).map(p=>p.label).join(", "),
+      outils: TOOLS.filter(t=>tools.includes(t.id)).map(t=>t.label).join(", "),
+      plus_gros_probleme: biggestPain || "Non renseigné", date: new Date().toISOString()
+    };
+    if (WEBHOOK_URL) {
+      try { await fetch(WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(leadData) }); } catch(e) { console.log("Webhook error:", e); }
+    }
+    // Sauvegarde locale en backup
+    try { const leads = JSON.parse(localStorage.getItem("kpibara_leads") || "[]"); leads.push(leadData); localStorage.setItem("kpibara_leads", JSON.stringify(leads)); } catch(e) {}
+    setEmailSending(false); setStep(5); runAnalysis();
+  };
+
+  const renderEmailGate = () => (
+    <div style={{maxWidth:"500px",margin:"0 auto"}}>
+      <ProgressBar step={4} total={totalSteps}/>
+      <div style={{textAlign:"center",marginBottom:"40px"}}>
+        <div style={{fontSize:"56px",marginBottom:"16px",animation:"bounceIn 0.6s cubic-bezier(0.68,-0.55,0.27,1.55)"}}>🍰</div>
+        <h2 style={{fontSize:"28px",fontWeight:"800",color:"white",margin:"0 0 12px",fontFamily:S.fontH}}>Tes résultats sont prêts !</h2>
+        <p style={{fontSize:"15px",color:"rgba(255,255,255,0.5)",lineHeight:"1.7",margin:"0 0 8px",fontFamily:S.font}}>Entre ton email pour recevoir ton diagnostic complet et des conseils personnalisés.</p>
+        <p style={{fontSize:"12px",color:"rgba(255,255,255,0.3)",fontFamily:S.font}}>Pas de spam, promis 🤞 Juste de la valeur.</p>
+      </div>
+
+      <div style={{background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:"24px",padding:"32px",backdropFilter:"blur(20px)"}}>
+        <div style={{marginBottom:"20px"}}>
+          <label style={{fontSize:"13px",color:"rgba(255,255,255,0.45)",display:"block",marginBottom:"8px",fontFamily:S.font}}>Ton prénom</label>
+          <input type="text" value={userFirstName} onChange={e=>setUserFirstName(e.target.value)} placeholder="Ex: Marie"
+            style={{width:"100%",padding:"16px 20px",borderRadius:"14px",border:"2px solid rgba(255,255,255,0.1)",background:"rgba(255,255,255,0.04)",color:"white",fontSize:"16px",outline:"none",fontFamily:S.font,boxSizing:"border-box",transition:"border-color 0.3s"}}
+            onFocus={e=>e.target.style.borderColor="rgba(255,107,157,0.5)"} onBlur={e=>e.target.style.borderColor="rgba(255,255,255,0.1)"}/>
+        </div>
+        <div style={{marginBottom:"24px"}}>
+          <label style={{fontSize:"13px",color:"rgba(255,255,255,0.45)",display:"block",marginBottom:"8px",fontFamily:S.font}}>Ton adresse email</label>
+          <input type="email" value={userEmail} onChange={e=>{setUserEmail(e.target.value);setEmailError("")}} placeholder="marie@monbusiness.com"
+            style={{width:"100%",padding:"16px 20px",borderRadius:"14px",border:`2px solid ${emailError?"rgba(255,80,80,0.5)":"rgba(255,255,255,0.1)"}`,background:"rgba(255,255,255,0.04)",color:"white",fontSize:"16px",outline:"none",fontFamily:S.font,boxSizing:"border-box",transition:"border-color 0.3s"}}
+            onFocus={e=>e.target.style.borderColor="rgba(255,107,157,0.5)"} onBlur={e=>e.target.style.borderColor=emailError?"rgba(255,80,80,0.5)":"rgba(255,255,255,0.1)"}
+            onKeyDown={e=>{if(e.key==="Enter"&&canGo())submitLead()}}/>
+          {emailError && <div style={{fontSize:"12px",color:"#FF5050",marginTop:"6px",fontFamily:S.font}}>{emailError}</div>}
+        </div>
+        <CTAButton onClick={submitLead} disabled={!canGo()||emailSending} size="lg">
+          {emailSending ? "Envoi..." : "🔍 Voir mes résultats"}
+        </CTAButton>
+        <div style={{textAlign:"center",marginTop:"16px"}}>
+          <div style={{fontSize:"11px",color:"rgba(255,255,255,0.25)",fontFamily:S.font}}>🔒 Tes données restent privées. Désabonnement en 1 clic.</div>
+        </div>
+      </div>
+
+      {/* Teaser */}
+      <div style={{marginTop:"32px",display:"flex",gap:"12px",justifyContent:"center",flexWrap:"wrap"}}>
+        {[{icon:"⏱️",label:"Heures économisées"},{icon:"💸",label:"ROI calculé"},{icon:"🎯",label:"Actions concrètes"}].map((t,i) => (
+          <div key={i} style={{display:"flex",alignItems:"center",gap:"6px",padding:"8px 16px",borderRadius:"50px",background:"rgba(255,107,157,0.06)",border:"1px solid rgba(255,107,157,0.12)"}}>
+            <span style={{fontSize:"14px"}}>{t.icon}</span>
+            <span style={{fontSize:"12px",color:"rgba(255,255,255,0.45)",fontFamily:S.font}}>{t.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
   const renderResults = () => {
     if(!results) return null;
     const lines = aiInsight.split("\n").filter(l=>l.trim());
@@ -499,7 +571,7 @@ RÈGLES STRICTES :
       <div style={{position:"fixed",width:"500px",height:"500px",borderRadius:"50%",background:"radial-gradient(circle,rgba(255,215,0,0.04) 0%,transparent 70%)",bottom:"-200px",left:"-200px",pointerEvents:"none"}}/>
 
       <div style={{position:"relative",zIndex:1,padding:"40px 20px",maxWidth:"800px",margin:"0 auto"}}>
-        {step > 0 && step < 4 && (
+        {step > 0 && step < 5 && (
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"32px"}}>
             <button onClick={()=>setStep(s=>s-1)} style={{background:"none",border:"none",color:"rgba(255,255,255,0.35)",cursor:"pointer",fontSize:"14px",fontFamily:S.font}}>← Retour</button>
             <a href={SITE_URL} style={{fontSize:"12px",color:"rgba(255,255,255,0.25)",fontFamily:S.font,textDecoration:"none"}}>🍰 Kaiden</a>
@@ -510,13 +582,14 @@ RÈGLES STRICTES :
         {step === 1 && renderStep1()}
         {step === 2 && renderStep2()}
         {step === 3 && renderStep3()}
-        {step === 4 && loading && <AILoader progress={loadProgress} statusText={loadStatus}/>}
-        {step === 4 && !loading && results && renderResults()}
+        {step === 4 && renderEmailGate()}
+        {step === 5 && loading && <AILoader progress={loadProgress} statusText={loadStatus}/>}
+        {step === 5 && !loading && results && renderResults()}
 
         {step >= 1 && step <= 3 && (
           <div style={{textAlign:"center",marginTop:"40px"}}>
-            <CTAButton onClick={()=>{if(step===3){setStep(4);runAnalysis()}else setStep(s=>s+1)}} disabled={!canGo()}>
-              {step === 3 ? "🔍 Lancer l'analyse" : "Continuer →"}
+            <CTAButton onClick={()=>setStep(s=>s+1)} disabled={!canGo()}>
+              {"Continuer →"}
             </CTAButton>
           </div>
         )}
