@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>50 prompts IA pour entrepreneurs — Prêts à copier-coller | Kaiden</title>
+<meta name="description" content="Les 50 prompts IA que j'utilise au quotidien pour rédiger, analyser, automatiser et vendre. Prêts à copier-coller. Compatibles ChatGPT, Claude, Gemini.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://kpibara.com/blog/50-prompts-ia-entrepreneurs/">
+<meta property="og:title" content="50 prompts IA pour entrepreneurs">
+<meta property="og:description" content="Les prompts prêts à copier-coller qui me font gagner des heures chaque semaine.">
+<meta property="og:type" content="article">
+<link rel="icon" type="image/svg+xml" href="/kpibara.svg">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"50 prompts IA pour entrepreneurs","author":{"@type":"Person","name":"Kaiden"},"datePublished":"2026-02-10","description":"Les 50 prompts IA prêts à copier-coller pour ton business."}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--pink-hot:#FF4D7D;--pink-light:#FFB6C9;--pink-bg:#FFF0F3;--dark:#1a1a2e;--dark-card:#2a2a3e;--dark-deeper:#14142a;--white:#fff;--gold:#FFD700;--green:#34D399;--purple:#A78BFA;--text:#E2E8F0;--text-muted:#94A3B8;--border:rgba(255,255,255,0.08)}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;backdrop-filter:blur(20px);background:rgba(26,26,46,0.92);border-bottom:1px solid rgba(255,77,125,0.15);display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.4rem;background:linear-gradient(135deg,var(--pink-hot),var(--pink-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+.nav-links{display:flex;gap:2rem;list-style:none}.nav-links a{color:var(--white);text-decoration:none;font-weight:500;font-size:.9rem;transition:color .3s}.nav-links a:hover{color:var(--pink-hot)}
+.nav-diag{background:linear-gradient(135deg,var(--pink-hot),#FF8DA1)!important;-webkit-text-fill-color:white!important;padding:.4rem 1rem;border-radius:50px;font-size:.85rem!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:101}.hamburger span{width:24px;height:2px;background:var(--white);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}.hamburger.open span:nth-child(2){opacity:0}.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+@media(max-width:768px){.hamburger{display:flex}.nav-links{display:none;position:fixed;inset:0;background:var(--dark);flex-direction:column;align-items:center;justify-content:center;gap:2rem;z-index:100}.nav-links.open{display:flex}}
+
+.article-hero{padding:8rem 2rem 3rem;text-align:center;position:relative}
+.article-hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at center top,rgba(167,139,250,0.08) 0%,transparent 60%);pointer-events:none}
+.article-breadcrumb{font-size:.82rem;color:var(--text-muted);margin-bottom:1.5rem}.article-breadcrumb a{color:var(--pink-light);text-decoration:none}
+.article-badge{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem 1rem;background:rgba(52,211,153,0.12);border:1px solid rgba(52,211,153,0.25);border-radius:50px;font-size:.78rem;color:var(--green);font-weight:600;margin-bottom:1.2rem}
+.article-hero h1{font-family:'Fredoka',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;line-height:1.2;margin-bottom:1rem;max-width:750px;margin-left:auto;margin-right:auto}
+.article-hero h1 .accent{background:linear-gradient(135deg,var(--purple),var(--pink-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.article-meta-bar{display:flex;justify-content:center;gap:2rem;font-size:.82rem;color:var(--text-muted);flex-wrap:wrap}
+
+.article-content{max-width:720px;margin:0 auto;padding:0 2rem 4rem}
+.article-content h2{font-family:'Fredoka',sans-serif;font-size:1.5rem;font-weight:600;margin:2.5rem 0 1rem;color:var(--white);display:flex;align-items:center;gap:.6rem}
+.article-content p{font-size:1rem;line-height:1.8;color:var(--text);margin-bottom:1.2rem}
+.article-content strong{color:var(--white);font-weight:600}
+
+/* PROMPT CARDS */
+.prompt-card{background:var(--dark-card);border:1px solid var(--border);border-radius:16px;margin:1.2rem 0;overflow:hidden;transition:border .3s}
+.prompt-card:hover{border-color:rgba(255,77,125,0.2)}
+.prompt-header{padding:1rem 1.2rem .6rem;display:flex;align-items:center;justify-content:space-between}
+.prompt-num{font-size:.7rem;font-weight:700;padding:.2rem .6rem;border-radius:50px;letter-spacing:.5px}
+.prompt-num.cat-redaction{background:rgba(255,77,125,0.15);color:var(--pink-hot)}
+.prompt-num.cat-analyse{background:rgba(96,165,250,0.15);color:#60A5FA}
+.prompt-num.cat-auto{background:rgba(52,211,153,0.15);color:var(--green)}
+.prompt-num.cat-creation{background:rgba(167,139,250,0.15);color:var(--purple)}
+.prompt-num.cat-vente{background:rgba(255,215,0,0.12);color:var(--gold)}
+.prompt-num.cat-orga{background:rgba(244,114,182,0.15);color:#F472B6}
+.prompt-title{font-family:'Fredoka',sans-serif;font-size:1rem;font-weight:600;color:var(--white)}
+.prompt-body{padding:0 1.2rem 1rem}
+.prompt-text{background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:1rem;font-size:.88rem;line-height:1.7;color:var(--text-muted);font-family:'Outfit',sans-serif;position:relative}
+.copy-btn{position:absolute;top:.6rem;right:.6rem;background:rgba(255,77,125,0.15);border:1px solid rgba(255,77,125,0.25);color:var(--pink-hot);padding:.3rem .7rem;border-radius:8px;font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s}
+.copy-btn:hover{background:var(--pink-hot);color:white}
+.copy-btn.copied{background:var(--green);border-color:var(--green);color:white}
+
+/* GATE */
+.gate-overlay{position:relative;margin:3rem 0}
+.gate-blur{filter:blur(6px);pointer-events:none;user-select:none;opacity:0.5;max-height:600px;overflow:hidden}
+.gate-blur::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(transparent,var(--dark));pointer-events:none}
+.gate-box{position:relative;z-index:2;background:linear-gradient(160deg,var(--dark-card),var(--dark-deeper));border:1px solid rgba(167,139,250,0.25);border-radius:24px;padding:2.5rem;text-align:center;margin-top:-80px}
+.gate-box h3{font-family:'Fredoka',sans-serif;font-size:1.4rem;font-weight:600;margin-bottom:.5rem}
+.gate-box p{font-size:.9rem;color:var(--text-muted);margin-bottom:1.5rem}
+.gate-form{display:flex;gap:.8rem;max-width:420px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.gate-input{flex:1;min-width:150px;padding:.85rem 1.2rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:50px;color:white;font-family:'Outfit',sans-serif;font-size:.9rem;outline:none;transition:border .3s}
+.gate-input:focus{border-color:var(--purple)}.gate-input::placeholder{color:rgba(255,255,255,0.25)}
+.btn-gate{padding:.85rem 2rem;background:linear-gradient(135deg,var(--purple),#C084FC);color:white;border:none;border-radius:50px;font-family:'Fredoka',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .3s;box-shadow:0 4px 20px rgba(167,139,250,0.25)}
+.btn-gate:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(167,139,250,0.4)}
+.gate-note{font-size:.75rem;color:rgba(255,255,255,0.25);margin-top:.8rem}
+.gate-overlay.unlocked .gate-blur{filter:none;pointer-events:auto;user-select:auto;opacity:1;max-height:none}
+.gate-overlay.unlocked .gate-blur::after{display:none}
+.gate-overlay.unlocked .gate-box{display:none}
+
+.article-cta{max-width:720px;margin:0 auto;padding:0 2rem 4rem}
+.cta-box{background:var(--dark-card);border:1px solid var(--border);border-radius:20px;padding:2.5rem;text-align:center}
+.cta-box h2{font-family:'Fredoka',sans-serif;font-size:1.4rem;margin-bottom:.5rem}
+.cta-box p{color:var(--text-muted);font-size:.9rem;margin-bottom:1.5rem}
+.btn-cta{display:inline-flex;align-items:center;gap:.5rem;padding:1rem 2rem;background:linear-gradient(135deg,var(--pink-hot),#FF8DA1);color:white;border:none;border-radius:50px;font-family:'Fredoka',sans-serif;font-size:1rem;font-weight:600;text-decoration:none;transition:all .3s;box-shadow:0 4px 20px rgba(255,77,125,0.25)}
+.btn-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,77,125,0.4)}
+
+footer{text-align:center;padding:3rem 2rem;color:rgba(255,255,255,0.3);font-size:.85rem;border-top:1px solid rgba(255,255,255,0.05)}
+footer a{color:var(--pink-light);text-decoration:none}
+@media(max-width:768px){.article-hero{padding:7rem 1.5rem 2rem}.article-content{padding:0 1.5rem 3rem}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">🍰 Kaiden</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/#about">Qui suis-je</a></li>
+    <li><a href="/boutique/">Boutique 🛍️</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/kpibara-audit/" class="nav-diag">Diagnostic 🔍</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<header class="article-hero">
+  <div class="article-breadcrumb"><a href="/">Accueil</a> → <a href="/blog/">Blog</a> → 50 Prompts IA</div>
+  <div class="article-badge">🎁 RESSOURCE GRATUITE</div>
+  <h1>50 prompts IA que <span class="accent">j'utilise au quotidien</span> pour mon business</h1>
+  <div class="article-meta-bar">
+    <span>✍️ Par Kaiden</span>
+    <span>📖 12 min de lecture</span>
+    <span>📅 Février 2026</span>
+    <span>🏷️ Intelligence Artificielle</span>
+  </div>
+</header>
+
+<article class="article-content">
+
+  <p>L'IA, c'est pas magique. C'est un outil. Et comme tout outil, <strong>ça marche mieux quand on sait s'en servir</strong>.</p>
+  <p>Ces 50 prompts, je les utilise VRAIMENT. Chaque jour. Pour écrire, analyser, créer du contenu, automatiser. Copie-les, adapte-les à ton business, et regarde le temps que tu gagnes.</p>
+  <p>Chaque prompt a un <strong>bouton copier</strong> — tu cliques, tu colles dans ChatGPT ou Claude, tu remplaces les [VARIABLES] par tes infos, et c'est parti.</p>
+
+  <h2>✍️ Rédaction & Copywriting</h2>
+  <p>Les prompts qui font le taf quand il faut écrire vite et bien. Posts, emails, pages de vente — tout y passe.</p>
+
+  <div class="prompt-card">
+    <div class="prompt-header"><span class="prompt-title">#01 · Post LinkedIn accrocheur</span><span class="prompt-num cat-redaction">RÉDACTION</span></div>
+    <div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Écris un post LinkedIn sur [SUJET] pour [AUDIENCE]. Ton : direct et authentique, pas corporate. Commence par un hook qui donne envie de cliquer sur "voir plus". Max 1300 caractères. Termine par une question ouverte pour générer de l'engagement.</div></div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header"><span class="prompt-title">#02 · Email de prospection</span><span class="prompt-num cat-redaction">RÉDACTION</span></div>
+    <div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Rédige un email de prospection pour [MON SERVICE] à destination de [CIBLE]. Pas de formules bateaux, va droit au but avec un bénéfice concret dès la première ligne. Max 5 lignes. Le CTA doit être une question simple qui appelle une réponse rapide.</div></div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header"><span class="prompt-title">#03 · Description de produit qui vend</span><span class="prompt-num cat-redaction">RÉDACTION</span></div>
+    <div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Écris une description de vente pour [PRODUIT]. Mets en avant 3 bénéfices concrets (pas des features). Utilise des chiffres. Ton conversationnel, comme si tu parlais à un pote entrepreneur qui galère avec [PROBLÈME].</div></div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header"><span class="prompt-title">#04 · Newsletter hebdo</span><span class="prompt-num cat-redaction">RÉDACTION</span></div>
+    <div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>À partir de ces notes brutes [COLLER NOTES], rédige une newsletter engageante. Structure : 1 anecdote perso, 1 leçon business, 1 action concrète à faire cette semaine. Ton décontracté mais pro. Max 500 mots.</div></div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header"><span class="prompt-title">#05 · Page de vente</span><span class="prompt-num cat-redaction">RÉDACTION</span></div>
+    <div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Crée une page de vente pour [OFFRE] à [PRIX]. Structure : problème > agitation > solution > preuves > offre > garantie > CTA. Parle à [PERSONA] comme si c'était en face de toi. Pas de jargon marketing, que de l'authenticité.</div></div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header"><span class="prompt-title">#06 · Script vidéo courte (Reel/TikTok)</span><span class="prompt-num cat-redaction">RÉDACTION</span></div>
+    <div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Écris un script de Reel/TikTok de 60 secondes sur [SUJET]. Hook dans les 3 premières secondes, valeur immédiate, CTA naturel à la fin. Parle comme un humain, pas comme une pub. Indique les coupes et les textes à afficher à l'écran.</div></div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header"><span class="prompt-title">#07 · Hooks magnétiques</span><span class="prompt-num cat-redaction">RÉDACTION</span></div>
+    <div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Donne-moi 15 hooks (phrases d'accroche) pour du contenu sur [SUJET]. 5 qui jouent sur la curiosité, 5 sur la douleur, 5 sur le résultat. Format court, percutant. Moins de 10 mots chacun si possible.</div></div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header"><span class="prompt-title">#08 · Objets d'emails irrésistibles</span><span class="prompt-num cat-redaction">RÉDACTION</span></div>
+    <div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Donne-moi 10 objets d'email pour [CONTEXTE]. Critères : curiosité, urgence douce ou bénéfice clair. Pas de clickbait. Moins de 50 caractères chacun. Indique pour chaque objet quel levier psychologique il utilise.</div></div>
+  </div>
+
+  <!-- ======== EMAIL GATE ======== -->
+  <div class="gate-overlay" id="emailGate">
+    <div class="gate-blur">
+
+      <h2>📊 Analyse & Stratégie</h2>
+      <p>Les prompts pour prendre de meilleures décisions, analyser ta concurrence et structurer ta stratégie.</p>
+
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#09 · Analyse SWOT rapide</span><span class="prompt-num cat-analyse">STRATÉGIE</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Fais une analyse SWOT de [MON BUSINESS]. Sois honnête sur les faiblesses. Pour chaque point, donne une action concrète que je peux faire cette semaine. Format tableau si possible.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#10 · Étude de concurrence</span><span class="prompt-num cat-analyse">STRATÉGIE</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Analyse les forces et faiblesses de [CONCURRENT] par rapport à mon offre [MON OFFRE]. Identifie 3 angles de différenciation que je pourrais exploiter immédiatement.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#11 · Stratégie de prix</span><span class="prompt-num cat-analyse">STRATÉGIE</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Je vends [PRODUIT/SERVICE] à [PRIX ACTUEL] pour [CIBLE]. Analyse si mon prix est cohérent. Propose 3 scénarios de pricing avec les avantages/risques de chacun.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#12 · Plan 90 jours</span><span class="prompt-num cat-analyse">STRATÉGIE</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Crée un plan d'action sur 90 jours pour [OBJECTIF]. Décompose en sprints de 2 semaines. Chaque sprint = 1 objectif mesurable + 3 actions max. Sois réaliste, je suis solo.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#13 · Avocat du diable pour mon offre</span><span class="prompt-num cat-analyse">STRATÉGIE</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Voici mon offre : [DESCRIPTION]. Joue l'avocat du diable : quelles objections un prospect aurait ? Pour chaque objection, donne-moi une réponse concrète à utiliser en appel de vente.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#14 · Persona client détaillé</span><span class="prompt-num cat-analyse">STRATÉGIE</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Crée un persona détaillé pour [MON SERVICE]. Inclus : frustrations quotidiennes, où il traîne en ligne, ce qui le ferait acheter immédiatement, et ce qui le ferait fuir. Sois spécifique.</div></div></div>
+
+      <h2>🤖 Automatisation & Productivité</h2>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#15 · Identifier ce qui est automatisable</span><span class="prompt-num cat-auto">AUTO</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Voici ma journée type : [DÉCRIRE]. Identifie toutes les tâches répétitives que je pourrais automatiser. Classe-les par : temps gagné par semaine et facilité de mise en place.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#16 · Créer un workflow</span><span class="prompt-num cat-auto">AUTO</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Je veux automatiser [TÂCHE]. Décris le workflow étape par étape. Pour chaque étape, indique l'outil gratuit le plus adapté. Le workflow doit être faisable par un non-tech.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#17 · Templates d'emails automatisés</span><span class="prompt-num cat-auto">AUTO</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Crée 5 templates d'emails pour [SITUATION : relance, bienvenue, suivi]. Chaque email doit avoir des variables [PRÉNOM], [ENTREPRISE]. Ton pro mais humain. Prêts à brancher.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#18 · Checklist de process</span><span class="prompt-num cat-auto">AUTO</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Transforme ce process [DÉCRIRE] en checklist pas à pas qu'un assistant pourrait suivre les yeux fermés. Numéroté, avec outils nécessaires et temps estimé par étape.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#19 · Script de chatbot FAQ</span><span class="prompt-num cat-auto">AUTO</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Mon business c'est [DESCRIPTION]. Crée les 10 questions les plus fréquentes de mes clients + des réponses courtes et naturelles pour un chatbot. Pas de jargon.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#20 · Optimiser ma stack d'outils</span><span class="prompt-num cat-auto">AUTO</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Voici les outils que j'utilise : [LISTE]. Identifie les doublons, ce qui manque, et propose une stack optimale en 5 outils max avec les connexions entre eux.</div></div></div>
+
+      <h2>🎨 Création & Design</h2>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#21 · Brief design clair</span><span class="prompt-num cat-creation">CRÉATION</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Je dois créer [VISUEL]. Mon style : [DÉCRIRE]. Génère un brief design précis avec : palette de couleurs, typographies, mood, références visuelles, et les contraintes techniques.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#22 · Calendrier éditorial 30 jours</span><span class="prompt-num cat-creation">CRÉATION</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Crée un calendrier éditorial de 30 jours pour [PLATEFORME]. Mon domaine : [DOMAINE]. Alterne : éducatif, inspirationnel, behind-the-scenes, promotionnel (ratio 3-1-1-1). Donne le sujet + le hook pour chaque jour.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#23 · 20 idées de contenu infinies</span><span class="prompt-num cat-creation">CRÉATION</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Donne-moi 20 idées de contenu pour [NICHE] déclinables en 3 formats (post, vidéo courte, carrousel). Chaque idée doit résoudre un problème concret de mon audience. Pas de contenu générique.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#24 · Repurpose de contenu</span><span class="prompt-num cat-creation">CRÉATION</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Voici un [ARTICLE/VIDÉO] : [COLLER]. Transforme-le en : 3 posts LinkedIn, 5 tweets, 1 carrousel Instagram (texte de chaque slide), 1 newsletter courte. Garde mon ton.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#25 · Storytelling business</span><span class="prompt-num cat-creation">CRÉATION</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Aide-moi à raconter [MON PARCOURS/PROJET] de façon engageante. 5 actes : le quotidien d'avant, le déclencheur, la galère, la solution, le résultat. Ton authentique, pas larmoyant.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#26 · Bio mémorable</span><span class="prompt-num cat-creation">CRÉATION</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Écris 3 versions de bio pour [PLATEFORME]. Mon activité : [ACTIVITÉ]. Mon audience : [AUDIENCE]. Mémorable, pas générique. Max 150 caractères. Inclus un élément différenciant.</div></div></div>
+
+      <h2>💰 Vente & Relation Client</h2>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#27 · Réponse à objection prix</span><span class="prompt-num cat-vente">VENTE</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Mon prospect dit que c'est trop cher pour [MON OFFRE À X€]. 3 façons de répondre qui recentrent sur la valeur sans être agressif. Ton confiant mais empathique.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#28 · Email de relance non-lourd</span><span class="prompt-num cat-vente">VENTE</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Écris un email de relance pour un prospect qui n'a pas répondu depuis [DURÉE]. Pas de "je me permets". Sois direct, apporte de la valeur, donne une raison de répondre maintenant.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#29 · Script d'appel découverte</span><span class="prompt-num cat-vente">VENTE</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Script d'appel découverte de 15 min pour [MON SERVICE]. Pas un interrogatoire : une conversation. 5 questions qui révèlent les vrais besoins + la transition vers mon offre.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#30 · Proposition commerciale</span><span class="prompt-num cat-vente">VENTE</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Structure de proposition commerciale pour [SERVICE] à [CLIENT]. Sections : contexte, objectifs, solution, livrables, planning, investissement, prochaines étapes. Direct et pro.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#31 · Témoignage client structuré</span><span class="prompt-num cat-vente">VENTE</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>À partir de ces retours bruts de mon client [COLLER], rédige un témoignage structuré : situation avant, solution apportée, résultats concrets. Garde les mots du client.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#32 · Séquence email nurturing</span><span class="prompt-num cat-vente">VENTE</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Séquence de 5 emails sur 2 semaines pour quelqu'un qui a téléchargé [MON LEAD MAGNET]. Objectif : créer la confiance et amener naturellement vers [MON OFFRE]. Pas de forcing.</div></div></div>
+
+      <h2>📐 Organisation Perso</h2>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#33 · Planning de semaine optimal</span><span class="prompt-num cat-orga">ORGA</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Je suis [MON RÔLE], mes priorités cette semaine : [LISTER]. Planning lundi-vendredi. Deep work le matin, admin l'après-midi. Inclus des pauses. Sois réaliste.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#34 · Rétro hebdo</span><span class="prompt-num cat-orga">ORGA</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>5 questions de rétrospective pour ma semaine d'entrepreneur. Focus : ce qui a marché, ce qui a bloqué, ce que je repousse depuis trop longtemps, et ma priorité #1 pour next week.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#35 · Brief de délégation</span><span class="prompt-num cat-orga">ORGA</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Je veux déléguer [TÂCHE]. Crée un brief complet pour un assistant : contexte, étapes, outils à utiliser, résultat attendu, deadline, critères de qualité. Prêt à envoyer.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#36 · Prise de décision rapide</span><span class="prompt-num cat-orga">ORGA</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Je dois choisir entre [A] et [B] pour [CONTEXTE]. Analyse : coût, temps, risque, potentiel. Recommandation en 3 phrases max. Pas de "ça dépend", tranche.</div></div></div>
+      <div class="prompt-card"><div class="prompt-header"><span class="prompt-title">#37 · Anti procrastination</span><span class="prompt-num cat-orga">ORGA</span></div><div class="prompt-body"><div class="prompt-text"><button class="copy-btn" onclick="copyPrompt(this)">Copier</button>Je procrastine sur [TÂCHE] depuis [DURÉE]. Décompose en micro-actions de 15 min max. La première action doit être tellement petite que je ne peux pas dire non. Go.</div></div></div>
+
+    </div>
+
+    <div class="gate-box">
+      <h3>🔓 Débloque les 42 prompts restants</h3>
+      <p>Tu as vu les 8 premiers — il en reste 42 dans 5 catégories avec le bouton copier sur chaque prompt.</p>
+      <div class="gate-form" id="gateForm">
+        <input type="text" class="gate-input" id="gatePrenom" placeholder="Ton prénom" style="min-width:120px;flex:.5">
+        <input type="email" class="gate-input" id="gateEmail" placeholder="ton@email.com">
+        <button class="btn-gate" onclick="unlockContent()">Débloquer les 50 prompts 🤖</button>
+      </div>
+      <p class="gate-note">🔒 Pas de spam. Tu reçois aussi les prochains guides en avant-première.</p>
+    </div>
+  </div>
+
+</article>
+
+<div class="article-cta">
+  <div class="cta-box">
+    <h2>Tu veux automatiser tout ça dans ton business ?</h2>
+    <p>Le diagnostic IA analyse ton business en 2 minutes et te dit exactement par où commencer.</p>
+    <a href="/kpibara-audit/" class="btn-cta">Lancer mon diagnostic gratuit 🔍</a>
+  </div>
+</div>
+
+<footer><p>© 2026 Kaiden · <a href="/">Premium & Sucré</a> depuis toujours 🍰</p></footer>
+
+<script>
+function toggleNav(){document.getElementById('navLinks').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
+
+if(localStorage.getItem('kpibara_blog_unlocked')){document.getElementById('emailGate').classList.add('unlocked')}
+
+function unlockContent(){
+  const prenom=document.getElementById('gatePrenom').value;
+  const email=document.getElementById('gateEmail').value;
+  if(!email||!email.includes('@')){document.getElementById('gateEmail').style.borderColor='var(--purple)';return}
+  const leads=JSON.parse(localStorage.getItem('kpibara_blog_leads')||'[]');
+  leads.push({prenom,email,source:'50-prompts-ia',date:new Date().toISOString()});
+  localStorage.setItem('kpibara_blog_leads',JSON.stringify(leads));
+  localStorage.setItem('kpibara_blog_unlocked','true');
+  document.getElementById('emailGate').classList.add('unlocked');
+  document.getElementById('emailGate').scrollIntoView({behavior:'smooth',block:'start'});
+}
+document.querySelectorAll('.gate-input').forEach(i=>{i.addEventListener('keydown',e=>{if(e.key==='Enter')unlockContent()})});
+
+function copyPrompt(btn){
+  const text=btn.parentElement.textContent.replace('Copier','').replace('Copié !','').trim();
+  navigator.clipboard.writeText(text).then(()=>{btn.textContent='Copié !';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copier';btn.classList.remove('copied')},2000)});
+}
+</script>
+</body>
+</html>

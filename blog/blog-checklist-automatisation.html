@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30 tâches à automatiser dans ton business — Checklist complète | Kaiden</title>
+<meta name="description" content="La checklist des 30 tâches que tu peux automatiser dès aujourd'hui dans ton business. Classées par impact et difficulté, avec les outils recommandés.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://kpibara.com/blog/checklist-automatisation/">
+<meta property="og:title" content="30 tâches à automatiser dans ton business">
+<meta property="og:description" content="La checklist complète classée par impact et difficulté. Identifie tes quick wins en 5 minutes.">
+<meta property="og:type" content="article">
+<link rel="icon" type="image/svg+xml" href="/kpibara.svg">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"30 tâches à automatiser dans ton business","author":{"@type":"Person","name":"Kaiden"},"publisher":{"@type":"Organization","name":"KPIbara"},"datePublished":"2026-02-10","description":"La checklist des 30 tâches que tu peux automatiser dès aujourd'hui."}
+</script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--pink-hot:#FF4D7D;--pink-light:#FFB6C9;--pink-bg:#FFF0F3;--dark:#1a1a2e;--dark-card:#2a2a3e;--dark-deeper:#14142a;--white:#fff;--gold:#FFD700;--green:#34D399;--purple:#A78BFA;--text:#E2E8F0;--text-muted:#94A3B8;--border:rgba(255,255,255,0.08)}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;backdrop-filter:blur(20px);background:rgba(26,26,46,0.92);border-bottom:1px solid rgba(255,77,125,0.15);display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.4rem;background:linear-gradient(135deg,var(--pink-hot),var(--pink-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--white);text-decoration:none;font-weight:500;font-size:.9rem;transition:color .3s}
+.nav-links a:hover{color:var(--pink-hot)}
+.nav-diag{background:linear-gradient(135deg,var(--pink-hot),#FF8DA1)!important;-webkit-text-fill-color:white!important;padding:.4rem 1rem;border-radius:50px;font-size:.85rem!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:101}
+.hamburger span{width:24px;height:2px;background:var(--white);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+@media(max-width:768px){.hamburger{display:flex}.nav-links{display:none;position:fixed;inset:0;background:var(--dark);flex-direction:column;align-items:center;justify-content:center;gap:2rem;z-index:100}.nav-links.open{display:flex}}
+
+/* ARTICLE LAYOUT */
+.article-hero{padding:8rem 2rem 3rem;text-align:center;position:relative}
+.article-hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at center top,rgba(255,77,125,0.08) 0%,transparent 60%);pointer-events:none}
+.article-breadcrumb{font-size:.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+.article-breadcrumb a{color:var(--pink-light);text-decoration:none}
+.article-badge{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem 1rem;background:rgba(52,211,153,0.12);border:1px solid rgba(52,211,153,0.25);border-radius:50px;font-size:.78rem;color:var(--green);font-weight:600;margin-bottom:1.2rem}
+.article-hero h1{font-family:'Fredoka',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;line-height:1.2;margin-bottom:1rem;max-width:750px;margin-left:auto;margin-right:auto}
+.article-hero h1 .accent{background:linear-gradient(135deg,var(--pink-hot),#FF8DA1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.article-meta-bar{display:flex;justify-content:center;gap:2rem;font-size:.82rem;color:var(--text-muted);flex-wrap:wrap}
+
+/* CONTENT */
+.article-content{max-width:720px;margin:0 auto;padding:0 2rem 4rem}
+.article-content h2{font-family:'Fredoka',sans-serif;font-size:1.5rem;font-weight:600;margin:2.5rem 0 1rem;color:var(--white);display:flex;align-items:center;gap:.6rem}
+.article-content h3{font-family:'Fredoka',sans-serif;font-size:1.15rem;font-weight:600;margin:1.8rem 0 .8rem;color:var(--pink-light)}
+.article-content p{font-size:1rem;line-height:1.8;color:var(--text);margin-bottom:1.2rem}
+.article-content strong{color:var(--white);font-weight:600}
+
+/* TASK TABLE */
+.task-category{margin:2rem 0;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--dark-card)}
+.task-category-header{padding:1rem 1.5rem;display:flex;align-items:center;gap:.8rem;font-family:'Fredoka',sans-serif;font-size:1.1rem;font-weight:600}
+.task-category-header.cat-email{background:linear-gradient(135deg,rgba(255,77,125,0.12),rgba(255,77,125,0.04));color:var(--pink-hot)}
+.task-category-header.cat-social{background:linear-gradient(135deg,rgba(167,139,250,0.12),rgba(167,139,250,0.04));color:var(--purple)}
+.task-category-header.cat-vente{background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(255,215,0,0.03));color:var(--gold)}
+.task-category-header.cat-orga{background:linear-gradient(135deg,rgba(96,165,250,0.12),rgba(96,165,250,0.04));color:#60A5FA}
+.task-category-header.cat-ops{background:linear-gradient(135deg,rgba(52,211,153,0.12),rgba(52,211,153,0.04));color:var(--green)}
+.task-category-header.cat-marketing{background:linear-gradient(135deg,rgba(244,114,182,0.12),rgba(244,114,182,0.04));color:#F472B6}
+
+.task-item{padding:.8rem 1.5rem;display:grid;grid-template-columns:auto 1fr auto auto auto;gap:1rem;align-items:center;border-top:1px solid var(--border);font-size:.88rem;transition:background .2s}
+.task-item:hover{background:rgba(255,255,255,0.02)}
+.task-check{width:18px;height:18px;border:2px solid rgba(255,255,255,0.15);border-radius:4px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.task-check.checked{background:var(--green);border-color:var(--green)}
+.task-check.checked::after{content:'✓';color:white;font-size:11px;font-weight:700}
+.task-name{color:var(--text)}
+.task-badge{padding:.2rem .6rem;border-radius:50px;font-size:.7rem;font-weight:600;white-space:nowrap}
+.badge-high{background:rgba(52,211,153,0.15);color:var(--green)}
+.badge-mid{background:rgba(255,215,0,0.12);color:var(--gold)}
+.badge-low{background:rgba(255,77,125,0.12);color:var(--pink-hot)}
+.badge-easy{background:rgba(52,211,153,0.15);color:var(--green)}
+.badge-medium{background:rgba(255,215,0,0.12);color:var(--gold)}
+.badge-hard{background:rgba(255,77,125,0.12);color:var(--pink-hot)}
+.task-tool{color:var(--text-muted);font-size:.78rem;white-space:nowrap}
+
+@media(max-width:768px){
+  .task-item{grid-template-columns:auto 1fr;gap:.5rem}
+  .task-badge,.task-tool{display:none}
+  .article-hero{padding:7rem 1.5rem 2rem}
+  .article-content{padding:0 1.5rem 3rem}
+}
+
+/* EMAIL GATE */
+.gate-overlay{position:relative;margin:3rem 0}
+.gate-blur{filter:blur(6px);pointer-events:none;user-select:none;opacity:0.5;max-height:600px;overflow:hidden}
+.gate-blur::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(transparent,var(--dark));pointer-events:none}
+.gate-box{position:relative;z-index:2;background:linear-gradient(160deg,var(--dark-card),var(--dark-deeper));border:1px solid rgba(255,77,125,0.2);border-radius:24px;padding:2.5rem;text-align:center;margin-top:-80px}
+.gate-box h3{font-family:'Fredoka',sans-serif;font-size:1.4rem;font-weight:600;margin-bottom:.5rem}
+.gate-box p{font-size:.9rem;color:var(--text-muted);margin-bottom:1.5rem}
+.gate-form{display:flex;gap:.8rem;max-width:420px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.gate-input{flex:1;min-width:180px;padding:.85rem 1.2rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:50px;color:white;font-family:'Outfit',sans-serif;font-size:.9rem;outline:none;transition:border .3s}
+.gate-input:focus{border-color:var(--pink-hot)}
+.gate-input::placeholder{color:rgba(255,255,255,0.25)}
+.btn-gate{padding:.85rem 2rem;background:linear-gradient(135deg,var(--pink-hot),#FF8DA1);color:white;border:none;border-radius:50px;font-family:'Fredoka',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .3s;box-shadow:0 4px 20px rgba(255,77,125,0.25)}
+.btn-gate:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,77,125,0.4)}
+.gate-note{font-size:.75rem;color:rgba(255,255,255,0.25);margin-top:.8rem}
+
+/* UNLOCKED STATE */
+.gate-overlay.unlocked .gate-blur{filter:none;pointer-events:auto;user-select:auto;opacity:1;max-height:none}
+.gate-overlay.unlocked .gate-blur::after{display:none}
+.gate-overlay.unlocked .gate-box{display:none}
+
+/* ACTION BOX */
+.action-box{background:linear-gradient(160deg,rgba(255,77,125,0.08),rgba(255,215,0,0.04));border:1px solid rgba(255,77,125,0.2);border-radius:20px;padding:2rem;margin:2rem 0}
+.action-box h3{font-family:'Fredoka',sans-serif;font-size:1.2rem;font-weight:600;margin-bottom:.8rem;color:var(--white)}
+.action-step{display:flex;align-items:flex-start;gap:.8rem;margin:.6rem 0}
+.action-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;color:white}
+.action-text{font-size:.92rem;line-height:1.5;color:var(--text)}
+
+/* CTA BOTTOM */
+.article-cta{max-width:720px;margin:0 auto;padding:0 2rem 4rem}
+.cta-box{background:var(--dark-card);border:1px solid var(--border);border-radius:20px;padding:2.5rem;text-align:center}
+.cta-box h2{font-family:'Fredoka',sans-serif;font-size:1.4rem;margin-bottom:.5rem}
+.cta-box p{color:var(--text-muted);font-size:.9rem;margin-bottom:1.5rem}
+.btn-cta{display:inline-flex;align-items:center;gap:.5rem;padding:1rem 2rem;background:linear-gradient(135deg,var(--pink-hot),#FF8DA1);color:white;border:none;border-radius:50px;font-family:'Fredoka',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all .3s;box-shadow:0 4px 20px rgba(255,77,125,0.25)}
+.btn-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,77,125,0.4)}
+
+footer{text-align:center;padding:3rem 2rem;color:rgba(255,255,255,0.3);font-size:.85rem;border-top:1px solid rgba(255,255,255,0.05)}
+footer a{color:var(--pink-light);text-decoration:none}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">🍰 Kaiden</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/#about">Qui suis-je</a></li>
+    <li><a href="/boutique/">Boutique 🛍️</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/kpibara-audit/" class="nav-diag">Diagnostic 🔍</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<header class="article-hero">
+  <div class="article-breadcrumb"><a href="/">Accueil</a> → <a href="/blog/">Blog</a> → Checklist Automatisation</div>
+  <div class="article-badge">🎁 RESSOURCE GRATUITE</div>
+  <h1>Les 30 tâches que tu peux <span class="accent">automatiser aujourd'hui</span> dans ton business</h1>
+  <div class="article-meta-bar">
+    <span>✍️ Par Kaiden</span>
+    <span>📖 8 min de lecture</span>
+    <span>📅 Février 2026</span>
+    <span>🏷️ Automatisation</span>
+  </div>
+</header>
+
+<article class="article-content">
+
+  <p>Si tu passes plus de temps à <strong>faire tourner</strong> ton business qu'à le <strong>développer</strong>, c'est que tu as un problème d'automatisation. Point.</p>
+
+  <p>J'ai compilé les 30 tâches que j'ai automatisées pour mes clients (et pour moi). Pas de blabla théorique — chaque tâche a un score d'impact, un niveau de difficulté, et l'outil recommandé. Tu coches, tu choisis, tu fais.</p>
+
+  <h2>📧 Emails & Communication</h2>
+  <p>C'est souvent là que tu perds le plus de temps sans t'en rendre compte. 2h par jour dans ta boîte mail, ça fait <strong>500h par an</strong>. Imagine ce que tu ferais avec.</p>
+
+  <div class="task-category">
+    <div class="task-category-header cat-email">📧 Emails & Communication</div>
+    <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Réponses automatiques aux emails récurrents</span><span class="task-badge badge-high">Élevé</span><span class="task-badge badge-easy">Facile</span><span class="task-tool">Gmail + IA</span></div>
+    <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Tri et catégorisation des emails entrants</span><span class="task-badge badge-high">Élevé</span><span class="task-badge badge-medium">Moyen</span><span class="task-tool">Agent IA</span></div>
+    <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Relances clients automatiques</span><span class="task-badge badge-high">Élevé</span><span class="task-badge badge-easy">Facile</span><span class="task-tool">CRM / séquence</span></div>
+    <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Notifications sur emails importants</span><span class="task-badge badge-mid">Moyen</span><span class="task-badge badge-easy">Facile</span><span class="task-tool">n8n / webhook</span></div>
+    <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Réponse hors bureau intelligente</span><span class="task-badge badge-low">Faible</span><span class="task-badge badge-easy">Facile</span><span class="task-tool">Gmail natif</span></div>
+  </div>
+
+  <h2>📱 Réseaux Sociaux & Contenu</h2>
+  <p>Créer du contenu c'est bien. Passer 3h par jour à le poster, le programmer et le recycler, c'est du temps que tu ne passes pas à faire du chiffre.</p>
+
+  <div class="task-category">
+    <div class="task-category-header cat-social">📱 Réseaux Sociaux & Contenu</div>
+    <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Planification de posts multi-plateforme</span><span class="task-badge badge-high">Élevé</span><span class="task-badge badge-easy">Facile</span><span class="task-tool">Buffer / Hootsuite</span></div>
+    <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Génération d'idées de contenu par IA</span><span class="task-badge badge-high">Élevé</span><span class="task-badge badge-easy">Facile</span><span class="task-tool">ChatGPT / Claude</span></div>
+    <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Recyclage de contenu long en posts courts</span><span class="task-badge badge-high">Élevé</span><span class="task-badge badge-medium">Moyen</span><span class="task-tool">IA + template</span></div>
+    <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Veille concurrentielle automatique</span><span class="task-badge badge-mid">Moyen</span><span class="task-badge badge-medium">Moyen</span><span class="task-tool">Google Alerts</span></div>
+    <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Réponses pré-rédigées aux commentaires</span><span class="task-badge badge-mid">Moyen</span><span class="task-badge badge-easy">Facile</span><span class="task-tool">Templates + IA</span></div>
+  </div>
+
+  <!-- ======== EMAIL GATE ======== -->
+  <div class="gate-overlay" id="emailGate">
+    <div class="gate-blur">
+
+      <h2>💰 Ventes & Facturation</h2>
+      <div class="task-category">
+        <div class="task-category-header cat-vente">💰 Ventes & Facturation</div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Création de devis automatisée</span><span class="task-badge badge-high">Élevé</span><span class="task-badge badge-medium">Moyen</span><span class="task-tool">Notion + PDF</span></div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Envoi de factures récurrentes</span><span class="task-badge badge-high">Élevé</span><span class="task-badge badge-easy">Facile</span><span class="task-tool">Stripe / Abby</span></div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Relances de paiement automatiques</span><span class="task-badge badge-high">Élevé</span><span class="task-badge badge-easy">Facile</span><span class="task-tool">Logiciel factu</span></div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Pipeline de vente avec alertes</span><span class="task-badge badge-mid">Moyen</span><span class="task-badge badge-medium">Moyen</span><span class="task-tool">CRM + notifs</span></div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Calcul de rentabilité par projet</span><span class="task-badge badge-mid">Moyen</span><span class="task-badge badge-medium">Moyen</span><span class="task-tool">Spreadsheet</span></div>
+      </div>
+
+      <h2>📅 Organisation & Productivité</h2>
+      <div class="task-category">
+        <div class="task-category-header cat-orga">📅 Organisation & Productivité</div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Prise de RDV en ligne automatique</span><span class="task-badge badge-high">Élevé</span><span class="task-badge badge-easy">Facile</span><span class="task-tool">Cal.com</span></div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">To-do list depuis messages vocaux</span><span class="task-badge badge-high">Élevé</span><span class="task-badge badge-medium">Moyen</span><span class="task-tool">Telegram + Notion</span></div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Comptes-rendus de réunion automatiques</span><span class="task-badge badge-high">Élevé</span><span class="task-badge badge-easy">Facile</span><span class="task-tool">IA transcription</span></div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Rappels et suivis automatiques</span><span class="task-badge badge-mid">Moyen</span><span class="task-badge badge-easy">Facile</span><span class="task-tool">Notion / Todoist</span></div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Time tracking automatique par projet</span><span class="task-badge badge-mid">Moyen</span><span class="task-badge badge-easy">Facile</span><span class="task-tool">Toggl / Clockify</span></div>
+      </div>
+
+      <h2>🔧 Opérations & Admin</h2>
+      <div class="task-category">
+        <div class="task-category-header cat-ops">🔧 Opérations & Admin</div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Onboarding client automatisé</span><span class="task-badge badge-high">Élevé</span><span class="task-badge badge-medium">Moyen</span><span class="task-tool">Notion + emails</span></div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Sauvegarde automatique des documents</span><span class="task-badge badge-mid">Moyen</span><span class="task-badge badge-easy">Facile</span><span class="task-tool">Google Drive</span></div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Formulaires d'intake client</span><span class="task-badge badge-high">Élevé</span><span class="task-badge badge-easy">Facile</span><span class="task-tool">Typeform / Tally</span></div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Reporting hebdo automatique</span><span class="task-badge badge-mid">Moyen</span><span class="task-badge badge-medium">Moyen</span><span class="task-tool">Dashboard + email</span></div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Gestion des mots de passe équipe</span><span class="task-badge badge-mid">Moyen</span><span class="task-badge badge-easy">Facile</span><span class="task-tool">Bitwarden</span></div>
+      </div>
+
+      <h2>🚀 Marketing & Acquisition</h2>
+      <div class="task-category">
+        <div class="task-category-header cat-marketing">🚀 Marketing & Acquisition</div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Séquence email de bienvenue</span><span class="task-badge badge-high">Élevé</span><span class="task-badge badge-medium">Moyen</span><span class="task-tool">Brevo / Mailchimp</span></div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Lead magnet + capture email auto</span><span class="task-badge badge-high">Élevé</span><span class="task-badge badge-medium">Moyen</span><span class="task-tool">Landing + webhook</span></div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">SEO : audit et suivi de positions</span><span class="task-badge badge-mid">Moyen</span><span class="task-badge badge-medium">Moyen</span><span class="task-tool">SE Ranking</span></div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">Chatbot FAQ sur ton site</span><span class="task-badge badge-mid">Moyen</span><span class="task-badge badge-medium">Moyen</span><span class="task-tool">IA chatbot</span></div>
+        <div class="task-item"><div class="task-check" onclick="this.classList.toggle('checked')"></div><span class="task-name">A/B testing de pages automatisé</span><span class="task-badge badge-low">Faible</span><span class="task-badge badge-hard">Difficile</span><span class="task-tool">Google Optimize</span></div>
+      </div>
+
+      <div class="action-box">
+        <h3>🎯 Ton plan d'action en 5 étapes</h3>
+        <div class="action-step"><div class="action-num" style="background:var(--pink-hot)">1</div><div class="action-text"><strong>Coche les tâches qui te parlent</strong> — tout ce qui te fait dire "ah ouais, ça me soûle ça"</div></div>
+        <div class="action-step"><div class="action-num" style="background:var(--gold)">2</div><div class="action-text"><strong>Choisis UN seul quick win</strong> — la tâche la plus facile avec le plus d'impact</div></div>
+        <div class="action-step"><div class="action-num" style="background:var(--green)">3</div><div class="action-text"><strong>Mets-la en place cette semaine</strong> — pas le mois prochain, cette semaine</div></div>
+        <div class="action-step"><div class="action-num" style="background:var(--purple)">4</div><div class="action-text"><strong>Mesure le temps gagné</strong> — combien de temps ça prenait avant vs maintenant</div></div>
+        <div class="action-step"><div class="action-num" style="background:#60A5FA">5</div><div class="action-text"><strong>Passe à la suivante</strong> — une automatisation par semaine = 50 par an</div></div>
+      </div>
+
+    </div>
+
+    <div class="gate-box">
+      <h3>🔓 Débloque les 20 tâches restantes</h3>
+      <p>Tu as vu les 10 premières — il en reste 20 dans 4 catégories (Ventes, Orga, Admin, Marketing) + le plan d'action complet.</p>
+      <div class="gate-form" id="gateForm">
+        <input type="text" class="gate-input" id="gatePrenom" placeholder="Ton prénom" style="min-width:120px;flex:.5">
+        <input type="email" class="gate-input" id="gateEmail" placeholder="ton@email.com">
+        <button class="btn-gate" onclick="unlockContent()">Débloquer le guide complet 🍰</button>
+      </div>
+      <p class="gate-note">🔒 Pas de spam. Juste du contenu utile, promis.</p>
+    </div>
+  </div>
+
+</article>
+
+<!-- CTA -->
+<div class="article-cta">
+  <div class="cta-box">
+    <h2>Tu veux savoir exactement quoi automatiser en premier ?</h2>
+    <p>Le diagnostic IA analyse ton business en 2 minutes et te donne un plan d'action personnalisé avec le ROI estimé.</p>
+    <a href="/kpibara-audit/" class="btn-cta">Lancer mon diagnostic gratuit 🔍</a>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Kaiden · <a href="/">Premium & Sucré</a> depuis toujours 🍰</p>
+</footer>
+
+<script>
+function toggleNav(){document.getElementById('navLinks').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
+
+// Check if already unlocked
+if(localStorage.getItem('kpibara_blog_unlocked')){
+  document.getElementById('emailGate').classList.add('unlocked');
+}
+
+function unlockContent(){
+  const prenom=document.getElementById('gatePrenom').value;
+  const email=document.getElementById('gateEmail').value;
+  if(!email||!email.includes('@')){document.getElementById('gateEmail').style.borderColor='var(--pink-hot)';return}
+
+  // Save lead
+  const leads=JSON.parse(localStorage.getItem('kpibara_blog_leads')||'[]');
+  leads.push({prenom,email,source:'checklist-automatisation',date:new Date().toISOString()});
+  localStorage.setItem('kpibara_blog_leads',JSON.stringify(leads));
+  localStorage.setItem('kpibara_blog_unlocked','true');
+
+  // TODO: Send to webhook/Notion
+  // fetch(WEBHOOK_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prenom,email,source:'checklist-automatisation'})});
+
+  // Unlock
+  document.getElementById('emailGate').classList.add('unlocked');
+  
+  // Smooth scroll to unlocked content
+  document.getElementById('emailGate').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+document.querySelectorAll('.gate-input').forEach(input=>{
+  input.addEventListener('keydown',e=>{if(e.key==='Enter')unlockContent()});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog | Kaiden — Automatisation, IA & Business</title>
+<meta name="description" content="Guides pratiques, checklists et ressources gratuites pour automatiser ton business avec l'IA. Par Kaiden, architecte de solutions IA.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://kpibara.com/blog/">
+<meta property="og:title" content="Blog | Kaiden — Automatisation, IA & Business">
+<meta property="og:description" content="Guides pratiques et ressources gratuites pour automatiser ton business avec l'IA.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="/kpibara.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--pink-hot:#FF4D7D;--pink-light:#FFB6C9;--pink-bg:#FFF0F3;--dark:#1a1a2e;--dark-card:#2a2a3e;--dark-deeper:#14142a;--white:#fff;--gold:#FFD700;--green:#34D399;--purple:#A78BFA}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;backdrop-filter:blur(20px);background:rgba(26,26,46,0.92);border-bottom:1px solid rgba(255,77,125,0.15);display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.4rem;background:linear-gradient(135deg,var(--pink-hot),var(--pink-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--white);text-decoration:none;font-weight:500;font-size:.9rem;letter-spacing:.5px;transition:color .3s}
+.nav-links a:hover{color:var(--pink-hot)}
+.nav-diag{background:linear-gradient(135deg,var(--pink-hot),#FF8DA1)!important;-webkit-text-fill-color:white!important;padding:.4rem 1rem;border-radius:50px;font-size:.85rem!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:101}
+.hamburger span{width:24px;height:2px;background:var(--white);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+@media(max-width:768px){
+  .hamburger{display:flex}
+  .nav-links{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--dark);flex-direction:column;align-items:center;justify-content:center;gap:2rem;z-index:100}
+  .nav-links.open{display:flex}
+  .nav-links a{font-size:1.3rem}
+}
+
+/* HERO */
+.hero{padding:9rem 2rem 4rem;text-align:center;position:relative}
+.hero::before{content:'';position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:60vw;height:60vw;border-radius:50%;background:radial-gradient(circle,rgba(255,77,125,0.08) 0%,transparent 60%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.2rem;background:rgba(255,77,125,0.12);border:1px solid rgba(255,77,125,0.25);border-radius:50px;font-size:.85rem;color:var(--pink-light);margin-bottom:1.5rem;font-weight:500}
+.hero h1{font-family:'Fredoka',sans-serif;font-size:clamp(2rem,4.5vw,3.2rem);font-weight:700;line-height:1.15;margin-bottom:1rem}
+.hero h1 .accent{background:linear-gradient(135deg,var(--pink-hot),#FF8DA1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:1.1rem;line-height:1.7;color:rgba(255,255,255,0.55);max-width:550px;margin:0 auto}
+
+/* FILTER TABS */
+.filters{display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap;padding:0 2rem 3rem;position:relative;z-index:2}
+.filter-btn{padding:.5rem 1.2rem;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);border-radius:50px;color:rgba(255,255,255,0.5);font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;transition:all .3s}
+.filter-btn:hover{border-color:rgba(255,77,125,0.3);color:rgba(255,255,255,0.8)}
+.filter-btn.active{background:var(--pink-hot);border-color:var(--pink-hot);color:white}
+
+/* ARTICLES GRID */
+.articles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto;padding:0 2rem 5rem}
+
+.article-card{background:linear-gradient(160deg,var(--dark-card),var(--dark-deeper));border:1px solid rgba(255,255,255,0.06);border-radius:24px;overflow:hidden;transition:all .4s;text-decoration:none;color:var(--white);display:flex;flex-direction:column}
+.article-card:hover{transform:translateY(-6px);border-color:rgba(255,77,125,0.25);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+
+.article-thumb{height:200px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:4rem}
+.article-thumb.cat-automatisation{background:linear-gradient(135deg,rgba(255,77,125,0.15),rgba(255,77,125,0.05))}
+.article-thumb.cat-ia{background:linear-gradient(135deg,rgba(167,139,250,0.15),rgba(167,139,250,0.05))}
+.article-thumb.cat-productivite{background:linear-gradient(135deg,rgba(52,211,153,0.15),rgba(52,211,153,0.05))}
+
+.article-tag{position:absolute;top:1rem;left:1rem;padding:.3rem .8rem;border-radius:50px;font-size:.7rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.tag-gratuit{background:rgba(52,211,153,0.2);color:var(--green)}
+.tag-guide{background:rgba(167,139,250,0.2);color:var(--purple)}
+
+.article-body{padding:1.5rem;flex-grow:1;display:flex;flex-direction:column}
+.article-category{font-size:.75rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:.5rem}
+.article-category.cat-automatisation{color:var(--pink-hot)}
+.article-category.cat-ia{color:var(--purple)}
+.article-category.cat-productivite{color:var(--green)}
+
+.article-title{font-family:'Fredoka',sans-serif;font-size:1.2rem;font-weight:600;line-height:1.3;margin-bottom:.6rem}
+.article-excerpt{font-size:.88rem;line-height:1.6;color:rgba(255,255,255,0.45);flex-grow:1;margin-bottom:1rem}
+.article-meta{display:flex;align-items:center;justify-content:space-between;font-size:.78rem;color:rgba(255,255,255,0.3)}
+.article-read{color:var(--pink-hot);font-weight:600;display:flex;align-items:center;gap:.3rem;transition:gap .3s}
+.article-card:hover .article-read{gap:.6rem}
+
+/* NEWSLETTER CTA */
+.newsletter-section{max-width:700px;margin:0 auto 4rem;padding:0 2rem}
+.newsletter-box{background:linear-gradient(160deg,rgba(255,77,125,0.08),rgba(255,215,0,0.04));border:1px solid rgba(255,77,125,0.2);border-radius:24px;padding:2.5rem;text-align:center}
+.newsletter-box h2{font-family:'Fredoka',sans-serif;font-size:1.5rem;font-weight:600;margin-bottom:.5rem}
+.newsletter-box p{font-size:.9rem;color:rgba(255,255,255,0.5);margin-bottom:1.5rem}
+.newsletter-form{display:flex;gap:.8rem;max-width:400px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.newsletter-input{flex:1;min-width:200px;padding:.8rem 1.2rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:50px;color:white;font-family:'Outfit',sans-serif;font-size:.9rem;outline:none;transition:border .3s}
+.newsletter-input:focus{border-color:var(--pink-hot)}
+.newsletter-input::placeholder{color:rgba(255,255,255,0.25)}
+.btn-newsletter{padding:.8rem 1.8rem;background:linear-gradient(135deg,var(--pink-hot),#FF8DA1);color:white;border:none;border-radius:50px;font-family:'Fredoka',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .3s;box-shadow:0 4px 20px rgba(255,77,125,0.25)}
+.btn-newsletter:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,77,125,0.4)}
+.newsletter-note{font-size:.75rem;color:rgba(255,255,255,0.25);margin-top:.8rem}
+.newsletter-success{display:none;padding:.8rem 1.5rem;background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.2);border-radius:12px;color:var(--green);font-weight:500;margin-top:1rem}
+
+/* FOOTER */
+footer{text-align:center;padding:3rem 2rem;color:rgba(255,255,255,0.3);font-size:.85rem;border-top:1px solid rgba(255,255,255,0.05)}
+footer a{color:var(--pink-light);text-decoration:none}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:all .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:768px){
+  .hero{padding:7rem 1.5rem 3rem}
+  .articles-grid{grid-template-columns:1fr;padding:0 1.5rem 3rem}
+}
+</style>
+
+<!-- JSON-LD for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Blog Kaiden",
+  "description": "Guides pratiques pour automatiser ton business avec l'IA",
+  "url": "https://kpibara.com/blog/",
+  "author": {
+    "@type": "Person",
+    "name": "Kaiden"
+  }
+}
+</script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">🍰 Kaiden</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/#about" onclick="closeNav()">Qui suis-je</a></li>
+    <li><a href="/boutique/" onclick="closeNav()">Boutique 🛍️</a></li>
+    <li><a href="/blog/" onclick="closeNav()">Blog</a></li>
+    <li><a href="/kpibara-audit/" onclick="closeNav()" class="nav-diag">Diagnostic Gratuit 🔍</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">📚 Le Blog Premium & Sucré</div>
+  <h1>Guides <span class="accent">gratuits</span> pour entrepreneurs malins</h1>
+  <p>Des ressources concrètes pour automatiser, optimiser et scaler ton business. Pas de blabla, que du concret.</p>
+</section>
+
+<div class="filters">
+  <button class="filter-btn active" onclick="filterArticles('all')">Tout</button>
+  <button class="filter-btn" onclick="filterArticles('automatisation')">Automatisation</button>
+  <button class="filter-btn" onclick="filterArticles('ia')">Intelligence Artificielle</button>
+  <button class="filter-btn" onclick="filterArticles('productivite')">Productivité</button>
+</div>
+
+<div class="articles-grid" id="articlesGrid">
+
+  <!-- Article 1 -->
+  <a href="/blog/checklist-automatisation/" class="article-card reveal" data-cat="automatisation">
+    <div class="article-thumb cat-automatisation">
+      <span class="article-tag tag-gratuit">🎁 GRATUIT</span>
+      📋
+    </div>
+    <div class="article-body">
+      <div class="article-category cat-automatisation">Automatisation</div>
+      <h2 class="article-title">Les 30 tâches que tu peux automatiser aujourd'hui dans ton business</h2>
+      <p class="article-excerpt">La checklist complète classée par impact et difficulté. Emails, réseaux, ventes, admin — tout y passe. Identifie tes quick wins en 5 minutes.</p>
+      <div class="article-meta">
+        <span>📖 8 min de lecture</span>
+        <span class="article-read">Lire le guide →</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- Article 2 -->
+  <a href="/blog/50-prompts-ia-entrepreneurs/" class="article-card reveal" data-cat="ia">
+    <div class="article-thumb cat-ia">
+      <span class="article-tag tag-gratuit">🎁 GRATUIT</span>
+      🤖
+    </div>
+    <div class="article-body">
+      <div class="article-category cat-ia">Intelligence Artificielle</div>
+      <h2 class="article-title">50 prompts IA que j'utilise au quotidien pour mon business</h2>
+      <p class="article-excerpt">Rédaction, analyse, automatisation, création, vente — les prompts prêts à copier-coller qui me font gagner des heures chaque semaine.</p>
+      <div class="article-meta">
+        <span>📖 12 min de lecture</span>
+        <span class="article-read">Lire le guide →</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- Article 3 -->
+  <a href="/blog/kit-anti-bordel-digital-notion/" class="article-card reveal" data-cat="productivite">
+    <div class="article-thumb cat-productivite">
+      <span class="article-tag tag-guide">📘 GUIDE</span>
+      🧹
+    </div>
+    <div class="article-body">
+      <div class="article-category cat-productivite">Productivité</div>
+      <h2 class="article-title">Le Kit Anti-Bordel Digital : 5 templates Notion pour tout organiser</h2>
+      <p class="article-excerpt">Clients, projets, finances, contenu, dashboard — tout centralisé dans Notion. Duplique, remplis, et arrête de chercher tes trucs partout.</p>
+      <div class="article-meta">
+        <span>📖 10 min de lecture</span>
+        <span class="article-read">Lire le guide →</span>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<!-- Newsletter -->
+<div class="newsletter-section">
+  <div class="newsletter-box">
+    <h2>🍰 Reçois les prochains guides</h2>
+    <p>Un guide par semaine, directement dans ta boîte. Automatisation, IA, productivité — que du concret.</p>
+    <div class="newsletter-form" id="nlForm">
+      <input type="email" class="newsletter-input" id="nlEmail" placeholder="ton@email.com">
+      <button class="btn-newsletter" onclick="subscribeNL()">S'abonner</button>
+    </div>
+    <p class="newsletter-note">🔒 Pas de spam. Désinscription en 1 clic.</p>
+    <div class="newsletter-success" id="nlSuccess">✅ Bienvenue ! Tu recevras le prochain guide en avant-première.</div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Kaiden · <a href="/">Premium & Sucré</a> depuis toujours 🍰</p>
+</footer>
+
+<script>
+function toggleNav(){document.getElementById('navLinks').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
+function closeNav(){document.getElementById('navLinks').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}
+
+// Filter
+function filterArticles(cat){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.article-card').forEach(card=>{
+    if(cat==='all'||card.dataset.cat===cat){card.style.display='flex'}
+    else{card.style.display='none'}
+  });
+}
+
+// Reveal
+const observer=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*100)}})},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// Newsletter
+function subscribeNL(){
+  const email=document.getElementById('nlEmail').value;
+  if(!email||!email.includes('@'))return;
+  const data=JSON.parse(localStorage.getItem('kpibara_newsletter')||'[]');
+  data.push({email,source:'blog',date:new Date().toISOString()});
+  localStorage.setItem('kpibara_newsletter',JSON.stringify(data));
+  document.getElementById('nlForm').style.display='none';
+  document.getElementById('nlSuccess').style.display='block';
+}
+document.getElementById('nlEmail').addEventListener('keydown',e=>{if(e.key==='Enter')subscribeNL()});
+</script>
+</body>
+</html>
