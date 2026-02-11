@@ -977,6 +977,10 @@ function joinWaitlist() {
     document.getElementById('waitlistEmail').style.borderColor = '#FF4D7D';
     return;
   }
+  document.getElementById('waitlistForm').style.display = 'none';
+  document.getElementById('waitlistSuccess').style.display = 'block';
+  fetch('/api/lead-capture',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prenom:'',email,source:'Waitlist Formation'})}).catch(()=>{});
+}
 
   // TODO: Send to Notion/webhook
   // For now, store locally
