@@ -281,8 +281,7 @@ function unlockContent(){
   localStorage.setItem('kpibara_blog_leads',JSON.stringify(leads));
   localStorage.setItem('kpibara_blog_unlocked','true');
 
-  // TODO: Send to webhook/Notion
-  // fetch(WEBHOOK_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prenom,email,source:'checklist-automatisation'})});
+  fetch('/api/lead-capture',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prenom,email,source:'Checklist Automatisation'})}).catch(()=>{});
 
   // Unlock
   document.getElementById('emailGate').classList.add('unlocked');

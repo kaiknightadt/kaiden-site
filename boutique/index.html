@@ -982,16 +982,6 @@ function joinWaitlist() {
   fetch('/api/lead-capture',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prenom:'',email,source:'Waitlist Formation'})}).catch(()=>{});
 }
 
-  // TODO: Send to Notion/webhook
-  // For now, store locally
-  const waitlist = JSON.parse(localStorage.getItem('kpibara_waitlist') || '[]');
-  waitlist.push({ email, date: new Date().toISOString() });
-  localStorage.setItem('kpibara_waitlist', JSON.stringify(waitlist));
-
-  document.getElementById('waitlistForm').style.display = 'none';
-  document.getElementById('waitlistSuccess').style.display = 'block';
-}
-
 // Enter key for waitlist
 document.getElementById('waitlistEmail').addEventListener('keydown', (e) => {
   if (e.key === 'Enter') joinWaitlist();
