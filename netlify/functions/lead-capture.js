@@ -126,10 +126,10 @@ exports.handler = async (event) => {
         body: JSON.stringify({
           email: email,
           attributes: {
-            PRENOM: prenom || "",
+            FIRSTNAME: prenom || "",
             SOURCE: source || "Blog",
           },
-          listIds: [2], // Default list ID — update after creating your list in Brevo
+          listIds: [5], // Kpibara list
           updateEnabled: true, // Update if contact already exists
         }),
       });
