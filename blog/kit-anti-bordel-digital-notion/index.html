@@ -6,11 +6,11 @@
 <title>Kit Anti-Bordel Digital : 5 templates Notion pour tout organiser | Kaiden</title>
 <meta name="description" content="5 templates Notion gratuits pour organiser ton business : CRM, projets, finances, contenu et dashboard. Duplique, remplis, c'est parti.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://kpibara.com/blog/kit-anti-bordel-digital-notion/">
+<link rel="canonical" href="https://kpibara.netlify.app/blog/kit-anti-bordel-digital-notion/">
 <meta property="og:title" content="Kit Anti-Bordel Digital : 5 templates Notion gratuits">
 <meta property="og:description" content="Clients, projets, finances, contenu — tout centralisé dans Notion.">
 <meta property="og:type" content="article">
-<link rel="icon" type="image/svg+xml" href="/kpibara.svg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍰</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Kit Anti-Bordel Digital : 5 templates Notion pour tout organiser","author":{"@type":"Person","name":"Kaiden"},"datePublished":"2026-02-10","description":"5 templates Notion gratuits pour organiser ton business."}</script>
 <style>
@@ -323,7 +323,7 @@ footer a{color:var(--pink-light);text-decoration:none}
 
 <script>
 function toggleNav(){document.getElementById('navLinks').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
-if(localStorage.getItem('kpibara_blog_unlocked')){document.getElementById('emailGate').classList.add('unlocked')}
+if(localStorage.getItem('kpibara_unlocked_kitnotion')){document.getElementById('emailGate').classList.add('unlocked')}
 
 function unlockContent(){
   const prenom=document.getElementById('gatePrenom').value;
@@ -332,7 +332,7 @@ function unlockContent(){
   const leads=JSON.parse(localStorage.getItem('kpibara_blog_leads')||'[]');
   leads.push({prenom,email,source:'kit-notion',date:new Date().toISOString()});
   localStorage.setItem('kpibara_blog_leads',JSON.stringify(leads));
-  localStorage.setItem('kpibara_blog_unlocked','true');
+  localStorage.setItem('kpibara_unlocked_kitnotion','true');
   fetch('/api/lead-capture',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prenom,email,source:'Kit Notion'})}).catch(()=>{});
   document.getElementById('emailGate').classList.add('unlocked');
   document.getElementById('emailGate').scrollIntoView({behavior:'smooth',block:'start'});

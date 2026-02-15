@@ -30,10 +30,11 @@ const { useState, useEffect } = React;
 
 const CALENDLY_URL = "https://calendly.com/kaidenvialle/echange-strategique";
 const SITE_URL = "https://kpibara.netlify.app";
+const AI_PROXY_URL = "/api/anthropic-proxy";
 
 // 👇 Colle ici ton URL webhook Make (ou Formspree, Zapier, etc.) pour recevoir les leads
 // Crée un scénario Make avec un trigger "Custom Webhook" et colle l'URL ici
-const WEBHOOK_URL = "/netlify/functions/lead-capture";
+const WEBHOOK_URL = "/api/lead-capture";
 
 const SECTORS = [
   { id: "ecommerce", label: "E-commerce", icon: "🛒" },
@@ -273,7 +274,7 @@ function App() {
   const [results, setResults] = useState(null);
   const [aiInsight, setAiInsight] = useState("");
 
-  const totalSteps = 6;
+  const totalSteps = 5;
   const togglePP = (id) => setPainPoints(p => p.includes(id)?p.filter(x=>x!==id):[...p,id]);
   const toggleT = (id) => setTools(p => p.includes(id)?p.filter(x=>x!==id):[...p,id]);
 
@@ -314,9 +315,9 @@ function App() {
     for(let i=0;i<=100;i+=2){await new Promise(r=>setTimeout(r,55));setLoadProgress(i);setLoadStatus(statuses[Math.min(Math.floor(i/18),statuses.length-1)])}
 
     try {
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
+      const response = await fetch(AI_PROXY_URL, {
         method:"POST",headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,
+        body:JSON.stringify({max_tokens:1000,
           messages:[{role:"user",content:`Tu es Kaiden, architecte de solutions IA, expert en automatisation business. Tu es premium et sucré. Génère un diagnostic court et percutant.
 
 Secteur : ${sl} | Équipe : ${teamSize} | CA : ${budget}
@@ -374,7 +375,7 @@ RÈGLES STRICTES :
     <div style={{maxWidth:"600px",margin:"0 auto"}}>
       <ProgressBar step={1} total={totalSteps}/>
       <div style={{textAlign:"center",marginBottom:"36px"}}>
-        <div style={{fontSize:"13px",color:S.pink,fontWeight:"600",marginBottom:"8px",fontFamily:S.font}}>Étape 1/3</div>
+        <div style={{fontSize:"13px",color:S.pink,fontWeight:"600",marginBottom:"8px",fontFamily:S.font}}>Étape 1/4</div>
         <h2 style={{fontSize:"28px",fontWeight:"800",color:"white",margin:0,fontFamily:S.fontH}}>Parle-moi de ton business 🍰</h2>
       </div>
       <div style={{marginBottom:"24px"}}>
@@ -408,7 +409,7 @@ RÈGLES STRICTES :
     <div style={{maxWidth:"650px",margin:"0 auto"}}>
       <ProgressBar step={2} total={totalSteps}/>
       <div style={{textAlign:"center",marginBottom:"36px"}}>
-        <div style={{fontSize:"13px",color:S.pink,fontWeight:"600",marginBottom:"8px",fontFamily:S.font}}>Étape 2/3</div>
+        <div style={{fontSize:"13px",color:S.pink,fontWeight:"600",marginBottom:"8px",fontFamily:S.font}}>Étape 2/4</div>
         <h2 style={{fontSize:"28px",fontWeight:"800",color:"white",margin:"0 0 8px",fontFamily:S.fontH}}>Qu'est-ce qui te bouffe du temps ? 🍪</h2>
         <p style={{fontSize:"14px",color:"rgba(255,255,255,0.45)",margin:0,fontFamily:S.font}}>Sélectionne au moins 2 tâches chronophages</p>
       </div>
@@ -426,7 +427,7 @@ RÈGLES STRICTES :
     <div style={{maxWidth:"650px",margin:"0 auto"}}>
       <ProgressBar step={3} total={totalSteps}/>
       <div style={{textAlign:"center",marginBottom:"36px"}}>
-        <div style={{fontSize:"13px",color:S.pink,fontWeight:"600",marginBottom:"8px",fontFamily:S.font}}>Étape 3/3</div>
+        <div style={{fontSize:"13px",color:S.pink,fontWeight:"600",marginBottom:"8px",fontFamily:S.font}}>Étape 3/4</div>
         <h2 style={{fontSize:"28px",fontWeight:"800",color:"white",margin:"0 0 8px",fontFamily:S.fontH}}>Tes outils actuels</h2>
         <p style={{fontSize:"14px",color:"rgba(255,255,255,0.45)",margin:0,fontFamily:S.font}}>Qu'est-ce que tu utilises au quotidien ?</p>
       </div>
