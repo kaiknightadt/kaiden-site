@@ -710,7 +710,7 @@ footer a {
     <li><a href="/kpibara-audit/" onclick="closeNav()">Diagnostic 🔍</a></li>
     <li><a href="#gratuit" onclick="closeNav()">Gratuit</a></li>
     <li><a href="#outils" onclick="closeNav()">Outils</a></li>
-    <li><a href="#formation" onclick="closeNav()">Formation</a></li>
+    <li><a href="#formation" onclick="closeNav()">Marque Blanche</a></li>
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleNav()">
     <span></span><span></span><span></span>
@@ -868,46 +868,46 @@ footer a {
   </div>
 </section>
 
-<!-- ==================== FORMATION ==================== -->
+<!-- ==================== LOGICIEL MARQUE BLANCHE ==================== -->
 <section class="section" id="formation">
   <div class="formation-box reveal">
-    <span class="formation-icon">🎓</span>
-    <div class="coming-badge">🚧 Coming Soon · 2026</div>
-    <h2 class="formation-title">Crée & Vends tes propres<br>outils IA</h2>
+    <span class="formation-icon">🏷️</span>
+    <div class="coming-badge">🔥 L'offre signature</div>
+    <h2 class="formation-title">Le Logiciel en Marque Blanche<br>de Vos Rêves</h2>
     <p class="formation-desc">
-      La formation complète pour apprendre à créer des automatisations, des agents IA et des micro-outils — puis les vendre. Exactement ce que je fais. Pas de théorie creuse, que du concret.
+      Entre Notion, ton CRM, ton outil email, ton calendrier et tes 12 abonnements à 29€/mois… ça commence à piquer. Et si tout ce dont tu as besoin tenait dans un seul logiciel — le tien ? Ton nom, ta marque, tes couleurs. On le construit pour toi, tu le fais tourner comme une pro.
     </p>
 
     <div class="formation-modules">
       <div class="formation-module">
-        <span class="formation-module-icon">🧠</span>
-        <span>Trouver des idées qui se vendent</span>
-      </div>
-      <div class="formation-module">
-        <span class="formation-module-icon">🔧</span>
-        <span>Construire sans coder</span>
+        <span class="formation-module-icon">🎨</span>
+        <span>100% à ton image</span>
       </div>
       <div class="formation-module">
         <span class="formation-module-icon">🤖</span>
-        <span>Intégrer l'IA partout</span>
+        <span>IA intégrée sous le capot</span>
+      </div>
+      <div class="formation-module">
+        <span class="formation-module-icon">💎</span>
+        <span>Dashboard client premium</span>
       </div>
       <div class="formation-module">
         <span class="formation-module-icon">💰</span>
-        <span>Vendre en automatique</span>
+        <span>Revends au prix que tu veux</span>
       </div>
       <div class="formation-module">
-        <span class="formation-module-icon">📈</span>
-        <span>Scaler ton business</span>
+        <span class="formation-module-icon">🛡️</span>
+        <span>Support & mises à jour inclus</span>
       </div>
     </div>
 
     <div class="waitlist-form" id="waitlistForm">
       <input type="email" class="waitlist-input" id="waitlistEmail" placeholder="ton@email.com" required>
-      <button class="btn-waitlist" onclick="joinWaitlist()">Rejoindre la liste d'attente 🍰</button>
+      <button class="btn-waitlist" onclick="joinWaitlist()">Je veux mon logiciel sur-mesure 🍰</button>
     </div>
-    <p class="waitlist-note">🔒 Pas de spam. Juste un email quand la formation sort + un prix early bird réservé.</p>
+    <p class="waitlist-note">🔒 On te recontacte sous 24h pour discuter de ton projet. Places limitées.</p>
     <div class="waitlist-success" id="waitlistSuccess">
-      ✅ Tu es sur la liste ! On te prévient en avant-première.
+      ✅ C'est noté ! On te recontacte très vite pour créer ton logiciel de rêve.
     </div>
   </div>
 </section>
@@ -964,7 +964,7 @@ function joinWaitlist() {
   }
   document.getElementById('waitlistForm').style.display = 'none';
   document.getElementById('waitlistSuccess').style.display = 'block';
-  fetch('/api/lead-capture',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prenom:'',email,source:'Waitlist Formation'})}).catch(()=>{});
+  fetch('/api/lead-capture',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prenom:'',email,source:'Logiciel Marque Blanche'})}).catch(()=>{});
 }
 
 // Enter key for waitlist
