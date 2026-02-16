@@ -4,7 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kaiden | Boutique — Outils IA & Automatisations</title>
-<link rel="icon" type="image/svg+xml" href="/kpibara.svg">
+<meta name="description" content="Outils IA et automatisations prêts à l'emploi pour entrepreneurs. Ressources gratuites et outils premium pour gagner du temps dès maintenant.">
+<meta property="og:title" content="Kaiden | Boutique — Outils IA & Automatisations">
+<meta property="og:description" content="Des outils IA prêts à l'emploi pour automatiser ton business. Ressources gratuites + outils premium.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍰</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -701,6 +706,7 @@ footer a {
   <ul class="nav-links" id="navLinks">
     <li><a href="/#about" onclick="closeNav()">Qui suis-je</a></li>
     <li><a href="/#projets" onclick="closeNav()">Mes Créations</a></li>
+    <li><a href="/blog/" onclick="closeNav()">Blog</a></li>
     <li><a href="/kpibara-audit/" onclick="closeNav()">Diagnostic 🔍</a></li>
     <li><a href="#gratuit" onclick="closeNav()">Gratuit</a></li>
     <li><a href="#outils" onclick="closeNav()">Outils</a></li>
@@ -765,7 +771,7 @@ footer a {
         <span class="price-amount">0€</span>
         <span class="price-label"> · PDF téléchargeable</span>
       </div>
-      <a href="#" class="btn-product btn-free" onclick="alert('Lien de téléchargement à configurer'); return false;">Télécharger gratuitement 📥</a>
+      <a href="/blog/checklist-automatisation/" class="btn-product btn-free">Accéder au guide 📥</a>
     </div>
 
     <!-- Lead Magnet 2 -->
@@ -784,7 +790,7 @@ footer a {
         <span class="price-amount">0€</span>
         <span class="price-label"> · Notion + PDF</span>
       </div>
-      <a href="#" class="btn-product btn-free" onclick="alert('Lien de téléchargement à configurer'); return false;">Télécharger gratuitement 📥</a>
+      <a href="/blog/50-prompts-ia-entrepreneurs/" class="btn-product btn-free">Accéder au guide 📥</a>
     </div>
 
     <!-- Lead Magnet 3 -->
@@ -803,7 +809,7 @@ footer a {
         <span class="price-amount">0€</span>
         <span class="price-label"> · Templates Notion</span>
       </div>
-      <a href="#" class="btn-product btn-free" onclick="alert('Lien de téléchargement à configurer'); return false;">Télécharger gratuitement 📥</a>
+      <a href="/blog/kit-anti-bordel-digital-notion/" class="btn-product btn-free">Accéder au guide 📥</a>
     </div>
 
   </div>
@@ -819,65 +825,44 @@ footer a {
 
   <div class="products-grid">
 
-    <!-- Paid 1 -->
-    <div class="product-card paid reveal">
-      <span class="product-badge">BEST-SELLER</span>
-      <div class="product-icon">📧</div>
-      <h3 class="product-title">L'Agent Email Intelligent</h3>
-      <p class="product-desc">Un agent IA qui trie, catégorise et pré-rédige tes réponses emails. Fini les 2h par jour dans ta boîte mail.</p>
+    <!-- Paid 1 — Agent Vocal Notion -->
+    <div class="product-card paid popular-glow reveal">
+      <span class="product-badge">⭐ POPULAIRE</span>
+      <div class="product-icon">🎙️</div>
+      <h3 class="product-title">L'Agent Vocal Notion</h3>
+      <p class="product-desc">Dictez vos tâches à voix haute, l'agent IA les ajoute directement dans vos to-do lists Notion. Zéro friction, zéro oubli.</p>
       <ul class="product-features">
-        <li>Tri automatique par priorité</li>
-        <li>Réponses pré-rédigées par l'IA</li>
-        <li>Catégorisation intelligente</li>
-        <li>Compatible Gmail & Outlook</li>
-        <li>Guide d'installation pas à pas</li>
+        <li>Ajout de tâches par la voix</li>
+        <li>Connexion directe à Notion</li>
+        <li>Reconnaissance intelligente des priorités</li>
+        <li>Fonctionne en français</li>
+        <li>Guide d'installation inclus</li>
       </ul>
       <div class="product-price">
         <span class="price-amount">29€</span>
         <span class="price-label"> · Paiement unique</span>
       </div>
-      <a href="#" class="btn-product btn-paid" onclick="alert('Lien de paiement à configurer'); return false;">Obtenir l'outil ⚡</a>
+      <a href="#" class="btn-product btn-paid" id="btn-agent-vocal" onclick="reserverProduit('Agent Vocal Notion', this); return false;">Réserver ma place ⚡</a>
     </div>
 
-    <!-- Paid 2 -->
-    <div class="product-card paid popular-glow reveal">
-      <span class="product-badge">⭐ POPULAIRE</span>
-      <div class="product-icon">📊</div>
-      <h3 class="product-title">Le Dashboard Business Tout-en-Un</h3>
-      <p class="product-desc">Un tableau de bord Notion + automatisations qui centralise ton CA, tes clients, tes tâches et tes KPIs. Vision claire, décisions rapides.</p>
-      <ul class="product-features">
-        <li>Suivi CA & dépenses automatisé</li>
-        <li>Pipeline clients visuel</li>
-        <li>KPIs en temps réel</li>
-        <li>Alertes automatiques</li>
-        <li>Connexion avec tes outils existants</li>
-        <li>3 vidéos tuto incluses</li>
-      </ul>
-      <div class="product-price">
-        <span class="price-amount">47€</span>
-        <span class="price-label"> · Paiement unique</span>
-      </div>
-      <a href="#" class="btn-product btn-paid" onclick="alert('Lien de paiement à configurer'); return false;">Obtenir l'outil ⚡</a>
-    </div>
-
-    <!-- Paid 3 -->
+    <!-- Paid 2 — LLM Personnalisé -->
     <div class="product-card paid reveal">
       <span class="product-badge">NOUVEAU</span>
-      <div class="product-icon">🎬</div>
-      <h3 class="product-title">Le Système Contenu Auto-Pilote</h3>
-      <p class="product-desc">Génère et planifie 30 jours de contenu en 1h. L'IA crée tes posts LinkedIn, Instagram et newsletters depuis tes idées brutes.</p>
+      <div class="product-icon">🤖</div>
+      <h3 class="product-title">Le LLM Personnalisé</h3>
+      <p class="product-desc">Un assistant IA entraîné sur vos propres contenus. Idéal pour coaches et formatrices : vos clients posent des questions, l'IA répond avec votre expertise.</p>
       <ul class="product-features">
-        <li>Génération IA multi-plateforme</li>
-        <li>Calendrier éditorial automatique</li>
-        <li>Adaptation au ton de ta marque</li>
-        <li>Banque de 100+ hooks qui marchent</li>
-        <li>Export direct pour planification</li>
+        <li>IA formée sur vos contenus</li>
+        <li>Réponses fidèles à votre méthode</li>
+        <li>Interface chat prête à l'emploi</li>
+        <li>Parfait pour coaches & formateurs</li>
+        <li>Mise en place accompagnée</li>
       </ul>
       <div class="product-price">
-        <span class="price-amount">67€</span>
+        <span class="price-amount">97€</span>
         <span class="price-label"> · Paiement unique</span>
       </div>
-      <a href="#" class="btn-product btn-paid" onclick="alert('Lien de paiement à configurer'); return false;">Obtenir l'outil ⚡</a>
+      <a href="#" class="btn-product btn-paid" id="btn-llm-perso" onclick="reserverProduit('LLM Personnalisé', this); return false;">Réserver ma place ⚡</a>
     </div>
 
   </div>
@@ -986,6 +971,21 @@ function joinWaitlist() {
 document.getElementById('waitlistEmail').addEventListener('keydown', (e) => {
   if (e.key === 'Enter') joinWaitlist();
 });
+
+// ===== RÉSERVATION PRODUIT PAYANT =====
+function reserverProduit(produit, btn) {
+  const email = prompt('Entrez votre email pour réserver ' + produit + ' :');
+  if (!email || !email.includes('@')) return;
+  const prenom = prompt('Votre prénom (optionnel) :') || '';
+  btn.textContent = '✅ Réservé !';
+  btn.style.pointerEvents = 'none';
+  btn.style.opacity = '0.7';
+  fetch('/api/lead-capture', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prenom: prenom, email: email, source: 'Boutique — ' + produit })
+  }).catch(() => {});
+}
 </script>
 </body>
 </html>

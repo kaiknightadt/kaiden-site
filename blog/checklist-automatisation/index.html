@@ -6,11 +6,11 @@
 <title>30 tâches à automatiser dans ton business — Checklist complète | Kaiden</title>
 <meta name="description" content="La checklist des 30 tâches que tu peux automatiser dès aujourd'hui dans ton business. Classées par impact et difficulté, avec les outils recommandés.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://kpibara.com/blog/checklist-automatisation/">
+<link rel="canonical" href="https://kpibara.netlify.app/blog/checklist-automatisation/">
 <meta property="og:title" content="30 tâches à automatiser dans ton business">
 <meta property="og:description" content="La checklist complète classée par impact et difficulté. Identifie tes quick wins en 5 minutes.">
 <meta property="og:type" content="article">
-<link rel="icon" type="image/svg+xml" href="/kpibara.svg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍰</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <script type="application/ld+json">
@@ -266,7 +266,7 @@ footer a{color:var(--pink-light);text-decoration:none}
 function toggleNav(){document.getElementById('navLinks').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
 
 // Check if already unlocked
-if(localStorage.getItem('kpibara_blog_unlocked')){
+if(localStorage.getItem('kpibara_unlocked_checklist')){
   document.getElementById('emailGate').classList.add('unlocked');
 }
 
@@ -279,7 +279,7 @@ function unlockContent(){
   const leads=JSON.parse(localStorage.getItem('kpibara_blog_leads')||'[]');
   leads.push({prenom,email,source:'checklist-automatisation',date:new Date().toISOString()});
   localStorage.setItem('kpibara_blog_leads',JSON.stringify(leads));
-  localStorage.setItem('kpibara_blog_unlocked','true');
+  localStorage.setItem('kpibara_unlocked_checklist','true');
 
   fetch('/api/lead-capture',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prenom,email,source:'Checklist Automatisation'})}).catch(()=>{});
 
