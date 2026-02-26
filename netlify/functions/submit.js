@@ -1,4 +1,4 @@
-const BKEY = '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';
+const BKEY = process.env.BREVO_KEY;
 
 exports.handler = async (event) => {
   // CORS headers
