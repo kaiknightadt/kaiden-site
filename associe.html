@@ -330,16 +330,25 @@ async function submitDossier() {
   btn.textContent = 'Envoi en cours...';
   btn.disabled = true;
 
-  // Appel via Netlify Function — pas de CORS
+  // Appel via Netlify Function
   try {
     const res = await fetch('/.netlify/functions/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, linkedin: li, q1, q2, q3, q4, q5 })
     });
-    if (!res.ok) console.warn('Submit HTTP error:', res.status);
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      console.error('Submit error:', res.status, body);
+      btn.disabled = false;
+      btn.textContent = 'Envoyer mon dossier →';
+      return err('⚠ Erreur serveur — réessaie dans quelques secondes.');
+    }
   } catch(e) {
-    console.warn('Submit fetch error:', e);
+    console.error('Submit fetch error:', e);
+    btn.disabled = false;
+    btn.textContent = 'Envoyer mon dossier →';
+    return err('⚠ Erreur réseau — vérifie ta connexion.');
   }
 
   show('screen-game');

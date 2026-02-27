@@ -1,7 +1,6 @@
-const BKEY = process.env.BREVO_KEY;
+const BREVO_KEY = process.env.BREVO_KEY;
 
 exports.handler = async (event) => {
-  // CORS headers
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
@@ -14,6 +13,11 @@ exports.handler = async (event) => {
   }
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method not allowed' }) };
+  }
+
+  if (!BREVO_KEY) {
+    console.error('BREVO_KEY environment variable is not set');
+    return { statusCode: 500, headers, body: JSON.stringify({ error: 'Server configuration error' }) };
   }
 
   let data;
@@ -29,7 +33,7 @@ exports.handler = async (event) => {
   try {
     const res = await fetch('https://api.brevo.com/v3/contacts', {
       method: 'POST',
-      headers: { 'accept': 'application/json', 'content-type': 'application/json', 'api-key': BKEY },
+      headers: { 'accept': 'application/json', 'content-type': 'application/json', 'api-key': BREVO_KEY },
       body: JSON.stringify({
         email,
         updateEnabled: true,
@@ -44,20 +48,21 @@ exports.handler = async (event) => {
     });
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
-      // duplicate_parameter = contact already exists, still ok
       if (err.code !== 'duplicate_parameter') {
-        console.error('Brevo contact error:', err);
+        console.error('Brevo contact error:', JSON.stringify(err));
+        return { statusCode: 502, headers, body: JSON.stringify({ error: 'Brevo contact failed', detail: err.message || err.code }) };
       }
     }
   } catch (e) {
     console.error('Brevo contact fetch failed:', e);
+    return { statusCode: 502, headers, body: JSON.stringify({ error: 'Brevo contact request failed' }) };
   }
 
   // ── 2. Envoyer la notif email à Kaiden ────────────────────────────
   try {
     const res = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
-      headers: { 'accept': 'application/json', 'content-type': 'application/json', 'api-key': BKEY },
+      headers: { 'accept': 'application/json', 'content-type': 'application/json', 'api-key': BREVO_KEY },
       body: JSON.stringify({
         sender: { name: 'KPIbara Recrutement', email: 'kaidenvialle@gmail.com' },
         to: [{ email: 'kaidenvialle@gmail.com', name: 'Kaiden' }],
@@ -93,7 +98,7 @@ exports.handler = async (event) => {
     });
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
-      console.error('Brevo email error:', err);
+      console.error('Brevo email error:', JSON.stringify(err));
     }
   } catch (e) {
     console.error('Brevo email fetch failed:', e);
