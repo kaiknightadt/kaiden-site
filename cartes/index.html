@@ -470,6 +470,134 @@ header p {
   text-transform: uppercase;
 }
 
+/* ── CTA BUTTONS ON BACK ── */
+.back-cta {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  margin-top: 8px;
+  border-radius: 8px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+}
+.back-cta.cta-public {
+  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 60%, white));
+  color: #08080c;
+}
+.back-cta.cta-public:hover { filter: brightness(1.15); transform: scale(1.03); }
+.back-cta.cta-private {
+  background: linear-gradient(135deg, #f5c542, #ff6b8a);
+  color: #08080c;
+}
+.back-cta.cta-private:hover { filter: brightness(1.15); transform: scale(1.03); }
+.back-cta.cta-club {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+.back-cta.cta-club:hover { background: rgba(255,255,255,0.05); }
+
+/* ── EMAIL MODAL ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(6,6,10,0.85);
+  backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: var(--surface);
+  border: 1px solid #1e1c2a;
+  border-radius: 16px;
+  padding: 32px 28px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  animation: modalIn 0.3s ease;
+}
+@keyframes modalIn { from { opacity:0; transform: scale(0.95) translateY(10px); } to { opacity:1; transform: scale(1) translateY(0); } }
+.modal-box h3 {
+  font-family: 'Dela Gothic One', cursive;
+  font-size: 16px;
+  margin-bottom: 6px;
+  background: linear-gradient(135deg, #f5c542, #ff6b8a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.modal-box p {
+  font-size: 10px;
+  color: var(--dim);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+.modal-box input[type="email"] {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #1e1c2a;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  outline: none;
+  margin-bottom: 10px;
+  transition: border-color 0.3s;
+}
+.modal-box input[type="email"]:focus { border-color: #f5c542; }
+.modal-box .modal-submit {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #f5c542, #ff6b8a);
+  color: #08080c;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: all 0.3s;
+}
+.modal-box .modal-submit:hover { filter: brightness(1.1); transform: scale(1.02); }
+.modal-close {
+  position: absolute;
+  top: 12px; right: 14px;
+  background: none;
+  border: none;
+  color: var(--dim);
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.modal-close:hover { color: var(--text); }
+.modal-success { display: none; }
+.modal-success h3 { font-size: 14px; margin-bottom: 10px; }
+.modal-success a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #f5c542, #ff6b8a);
+  color: #08080c;
+  text-decoration: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+}
+
 /* ── FOOTER ── */
 footer {
   text-align: center;
@@ -517,84 +645,102 @@ footer p { font-size: 9px; color: var(--dim); letter-spacing: 0.1em; }
   <p>Crafted by Kaï — AI Solutions Architect</p>
 </footer>
 
+<!-- EMAIL CAPTURE MODAL -->
+<div class="modal-overlay" id="emailModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div id="modalForm">
+      <h3>Débloque l'accès</h3>
+      <p>Laisse-moi ton email et reçois le lien du projet + un aperçu exclusif de comment il a été construit.</p>
+      <input type="email" id="modalEmail" placeholder="ton@email.com" required>
+      <button class="modal-submit" onclick="submitEmail()">Envoyer & débloquer →</button>
+    </div>
+    <div class="modal-success" id="modalSuccess">
+      <h3>C'est envoyé !</h3>
+      <p>Check ta boîte mail. En attendant, tu peux prendre RDV si tu veux le même genre de solution :</p>
+      <a href="https://calendly.com/kaidenvialle/echange-strategique" target="_blank">Prendre RDV →</a>
+    </div>
+  </div>
+</div>
+
 <script>
 var cards = [
-  { id:'musique', emoji:'🎵', name:'La Musique', tagline:'2 ans de créations musicales IA',
+  { id:'musique', url:'', type:'private', emoji:'🎵', name:'La Musique', tagline:'2 ans de créations musicales IA',
     cat:'creation', accent:'#a855f7', rarity:4,
     stats:{crea:98,tech:65,impact:80},
     desc:"Des mélodies qui n'existaient nulle part. La musique, c'est là que tout a commencé. Albums complets générés, mixés, masterisés.",
     projects:['Albums IA complets','Parodie Gilbert MontagIA','Bandes sonores custom','Beats & instrumentales'] },
-  { id:'clips', emoji:'🎬', name:'Les Clips', tagline:'33 000 crédits cramés en une nuit',
+  { id:'clips', url:'', type:'private', emoji:'🎬', name:'Les Clips', tagline:'33 000 crédits cramés en une nuit',
     cat:'creation', accent:'#f43f8a', rarity:5,
     stats:{crea:100,tech:72,impact:95},
     desc:"Mon avatar qui danse le disco à 3h du mat. Kling, Veo, Viggle — tous les outils poussés à leur limite.",
     projects:['Clip Gilbert MontagIA','Avatar animé cartoon','Vidéos quotidiennes auto','33K crédits en 1 nuit'] },
-  { id:'machines', emoji:'⚙️', name:'Les Machines', tagline:'36h économisées par mois',
+  { id:'machines', url:'', type:'private', emoji:'⚙️', name:'Les Machines', tagline:'36h économisées par mois',
     cat:'tech', accent:'#06d6a0', rarity:5,
     stats:{crea:55,tech:98,impact:92},
     desc:"Des flux invisibles qui travaillent pendant que les autres dorment. Make, n8n, Telegram, tout orchestré.",
     projects:['Pipeline Podcast BBoost','Oracle Agent Telegram','Kai Center Dashboard','Vocal → Notion Agent'] },
-  { id:'software', emoji:'💻', name:'Les Logiciels', tagline:'Pas de boutons morts. Jamais.',
+  { id:'software', url:'', type:'private', emoji:'💻', name:'Les Logiciels', tagline:'Pas de boutons morts. Jamais.',
     cat:'tech', accent:'#38bdf8', rarity:5,
     stats:{crea:70,tech:100,impact:95},
     desc:"Pas de boutons morts. Pas de liens cassés. Pas de fonctionnalités simulées. Tout fonctionne. Tout.",
     projects:['CIFEP — 130 utilisateurs','Naturelia — Formation massage','Fellow Feeling — Agence','LinkiBara — Scraping IA'] },
-  { id:'ctrlai', emoji:'🧠', name:'CTRL+AI', tagline:'20 builders maximum. Point.',
+  { id:'ctrlai', url:'https://calendly.com/kaidenvialle/echange-strategique', type:'club', emoji:'🧠', name:'CTRL+AI', tagline:'20 builders maximum. Point.',
     cat:'business', accent:'#f5c542', rarity:4,
     stats:{crea:80,tech:60,impact:88},
     desc:"20 tarés qui codent à 3h du mat. Un terrain de jeu exclusif pour ceux qui buildent, pas ceux qui regardent.",
     projects:['Communauté privée exclusive','Projets collaboratifs','Sessions nocturnes live','Builders only — no lurkers'] },
-  { id:'podcast', emoji:'🎙️', name:'Podcast Engine', tagline:'0.30€ par épisode traité',
+  { id:'podcast', url:'', type:'private', emoji:'🎙️', name:'Podcast Engine', tagline:'0.30€ par épisode traité',
     cat:'tech', accent:'#fb923c', rarity:4,
     stats:{crea:45,tech:95,impact:90},
     desc:"2-3h de travail manuel réduit à quelques minutes. Transcription, génération de contenu, publication automatique.",
     projects:['Transcription Whisper','Articles & newsletters auto','Posts LinkedIn/Insta','Publishing Ausha pipeline'] },
-  { id:'oracle', emoji:'🔮', name:'Oracle v2', tagline:"L'agent qui ne dort jamais",
+  { id:'oracle', url:'', type:'private', emoji:'🔮', name:'Oracle v2', tagline:"L'agent qui ne dort jamais",
     cat:'tech', accent:'#c084fc', rarity:5,
     stats:{crea:60,tech:97,impact:85},
     desc:"Agent Telegram multi-fonction. Monitoring, alertes, actions automatisées. Il surveille pendant que tu dors.",
     projects:['Monitoring 24/7','Alertes intelligentes','Actions automatisées','Interface Telegram native'] },
-  { id:'video', emoji:'📹', name:'Video Factory', tagline:'300 vidéos / mois pour 50€',
+  { id:'video', url:'', type:'private', emoji:'📹', name:'Video Factory', tagline:'300 vidéos / mois pour 50€',
     cat:'creation', accent:'#e879f9', rarity:3,
     stats:{crea:88,tech:82,impact:75},
     desc:"Système automatisé de génération vidéo quotidienne. De l'idée au post en quelques minutes.",
     projects:['Génération via Kling/Veo','Templates dynamiques','Publication multi-plateformes','Coût : 25-67€/mois'] },
-  { id:'linkedin', emoji:'🔗', name:'LinkedIn Arsenal', tagline:'Scraping + Automation + Content',
+  { id:'linkedin', url:'', type:'private', emoji:'🔗', name:'LinkedIn Arsenal', tagline:'Scraping + Automation + Content',
     cat:'business', accent:'#60a5fa', rarity:3,
     stats:{crea:72,tech:85,impact:78},
     desc:"LinkiBara, Selenium, automatisation de contenu. Le combo complet pour dominer LinkedIn.",
     projects:['LinkiBara scraper','Selenium automation','Content scheduling','Analytics & reporting'] },
-  { id:'kpibara', emoji:'🦫', name:'KPIbara', tagline:'No hostage. Never.',
+  { id:'kpibara', url:'https://calendly.com/kaidenvialle/echange-strategique', type:'club', emoji:'🦫', name:'KPIbara', tagline:'No hostage. Never.',
     cat:'business', accent:'#f59e0b', rarity:5,
     stats:{crea:75,tech:80,impact:100},
     desc:"L'agence qui ne prend jamais ses clients en otage. Code source transféré. Données restituées. Toujours.",
     projects:['Code source = client','Data ownership garanti','Transfert sur résiliation','Solutions IA sur mesure'] },
-  { id:'boardai', emoji:'🏛️', name:'Board AI', tagline:'Ton comité de direction IA',
+  { id:'boardai', url:'https://boardai-k1q0.onrender.com/', type:'public', emoji:'🏛️', name:'Board AI', tagline:'Ton comité de direction IA',
     cat:'tech', accent:'#ff6b6b', rarity:5,
     stats:{crea:85,tech:95,impact:98},
     desc:"Un board décisionnel avec Beyoncé, Luffy, Chalamet et d'autres. Chaque personnalité analyse ton problème sous son angle unique. Multi-agent RAG.",
     projects:['Multi-agent personnalités','RAG par personnage','Table décisionnelle ovale','Rapports détaillés'] },
-  { id:'milarepa', emoji:'🧘', name:'Milarepa', tagline:'LLM RAG du maître tibétain',
+  { id:'milarepa', url:'https://milarepa.onrender.com/', type:'public', emoji:'🧘', name:'Milarepa', tagline:'LLM RAG du maître tibétain',
     cat:'tech', accent:'#e2c97e', rarity:4,
     stats:{crea:90,tech:88,impact:82},
     desc:"Conversez avec Milarepa, le poète mystique tibétain du XIe siècle. Un LLM enrichi par RAG qui répond en vers et en sagesse.",
     projects:['RAG documentaire complet','Réponses en prose poétique','Sessions conversationnelles','Interface immersive'] },
-  { id:'leveinard', emoji:'💚', name:'Leveinard', tagline:'La santé de ta famille, centralisée',
+  { id:'leveinard', url:'https://leveinard-vialle.base44.app/', type:'public', emoji:'💚', name:'Leveinard', tagline:'La santé de ta famille, centralisée',
     cat:'tech', accent:'#4ade80', rarity:3,
     stats:{crea:65,tech:80,impact:85},
     desc:"Application de suivi santé familial. Centralise les informations médicales de toute la famille dans un espace sécurisé et accessible.",
     projects:['Fiches santé par membre','Historique médical','Rappels & suivis','Interface familiale'] },
-  { id:'declic', emoji:'📸', name:'Déclic', tagline:'Vos photos racontent une histoire',
+  { id:'declic', url:'https://declic.onrender.com/', type:'public', emoji:'📸', name:'Déclic', tagline:'Vos photos racontent une histoire',
     cat:'creation', accent:'#fbbf24', rarity:3,
     stats:{crea:92,tech:75,impact:78},
     desc:"Uploadez vos photos, Déclic crée une histoire unique à partir de vos souvenirs. L'IA transforme des moments en récit.",
     projects:['Upload & analyse photos','Génération narrative IA','Mise en page automatique','Export & partage'] },
-  { id:'agences', emoji:'🏢', name:'Solutions Agences', tagline:'Ton dev externe sans l\'URSSAF',
+  { id:'agences', url:'https://calendly.com/kaidenvialle/echange-strategique', type:'club', emoji:'🏢', name:'Solutions Agences', tagline:'Ton dev externe sans l\'URSSAF',
     cat:'business', accent:'#fb7185', rarity:4,
     stats:{crea:70,tech:90,impact:88},
     desc:"Un client chiant avec un brief impossible ? Envoie-le moi. Je te livre la solution clé en main, sans que tu embauches, sans URSSAF, sans prise de tête.",
     projects:['Brief → livraison clé en main','Pas de salariat, pas d\'URSSAF','Apps & plateformes sur mesure','White label pour ton agence'] },
-  { id:'auberge', emoji:'🏰', name:'Auberge du Trône', tagline:'Site vitrine hôtellerie sur mesure',
+  { id:'auberge', url:'https://aubergedutrone.com/', type:'public', emoji:'🏰', name:'Auberge du Trône', tagline:'Site vitrine hôtellerie sur mesure',
     cat:'business', accent:'#d4a574', rarity:3,
     stats:{crea:82,tech:65,impact:72},
     desc:"Site vitrine complet pour une auberge. Réservation, galerie, ambiance médiévale. Du sur-mesure qui raconte une histoire.",
@@ -631,6 +777,15 @@ function renderCards() {
 
     var num = '#' + String(cards.indexOf(card) + 1).padStart(3, '0');
 
+    var ctaHTML = '';
+    if (card.type === 'public') {
+      ctaHTML = '<a href="' + card.url + '" target="_blank" class="back-cta cta-public" onclick="event.stopPropagation()">Voir le projet →</a>';
+    } else if (card.type === 'private') {
+      ctaHTML = '<button class="back-cta cta-private" onclick="event.stopPropagation(); openModal(\'' + card.name + '\')">Débloquer l\'accès →</button>';
+    } else if (card.type === 'club') {
+      ctaHTML = '<a href="' + card.url + '" target="_blank" class="back-cta cta-club" onclick="event.stopPropagation()">Prendre RDV →</a>';
+    }
+
     wrap.innerHTML =
       '<div class="card-inner">' +
       '<div class="card-front">' +
@@ -662,6 +817,7 @@ function renderCards() {
         '</div>' +
         '<div class="back-desc">' + card.desc + '</div>' +
         '<div class="back-projects">' + projHTML + '</div>' +
+        ctaHTML +
         '<div class="back-hint">← cliquer pour retourner</div>' +
       '</div>' +
       '</div>';
@@ -717,6 +873,52 @@ var CARD_IMAGES = {
 };
 
 renderCards();
+
+// ── EMAIL MODAL LOGIC ──
+var currentCardName = '';
+
+function openModal(cardName) {
+  currentCardName = cardName;
+  document.getElementById('emailModal').classList.add('open');
+  document.getElementById('modalForm').style.display = 'block';
+  document.getElementById('modalSuccess').style.display = 'none';
+  document.getElementById('modalEmail').value = '';
+  document.getElementById('modalEmail').focus();
+}
+
+function closeModal() {
+  document.getElementById('emailModal').classList.remove('open');
+}
+
+function submitEmail() {
+  var email = document.getElementById('modalEmail').value.trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById('modalEmail').style.borderColor = '#ff4444';
+    return;
+  }
+  
+  // TODO: Connecter à Make.com / Brevo webhook
+  // fetch('TON_WEBHOOK_MAKE_URL', {
+  //   method: 'POST',
+  //   headers: {'Content-Type': 'application/json'},
+  //   body: JSON.stringify({ email: email, card: currentCardName, date: new Date().toISOString() })
+  // });
+  
+  console.log('Lead captured:', email, 'for card:', currentCardName);
+  
+  document.getElementById('modalForm').style.display = 'none';
+  document.getElementById('modalSuccess').style.display = 'block';
+}
+
+// Close on overlay click
+document.getElementById('emailModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// Close on Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
 </script>
 </body>
 </html>
