@@ -918,122 +918,90 @@ nav {
   margin: 0 auto;
 }
 
-.projects-grid {
-  max-width: 1200px;
+/* ===== PROJETS CTA IMMERSIF ===== */
+.projets-cta-wrapper {
+  max-width: 700px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
 }
 
-.project-card {
-  background: linear-gradient(145deg, rgba(42,42,62,0.8), rgba(30,30,48,0.9));
-  border: 1px solid rgba(255,77,125,0.1);
-  border-radius: 20px;
-  padding: 2rem 2rem 3.5rem 2rem;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.projets-preview-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
-  overflow: hidden;
-  cursor: pointer;
+  height: 220px;
+  width: 100%;
+  perspective: 800px;
 }
 
-.project-card::before {
+.projets-mini-card {
+  width: 120px;
+  height: 170px;
+  border-radius: 14px;
+  background: linear-gradient(145deg, var(--card-color), rgba(0,0,0,0.3));
+  border: 1px solid rgba(255,255,255,0.12);
+  position: absolute;
+  left: 50%;
+  transform: translateX(calc(-50% + var(--card-offset))) rotate(var(--card-rotation));
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+.projets-mini-card::before {
   content: '';
   position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 3px;
-  background: linear-gradient(90deg, var(--pink-hot), var(--pink-light));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s;
-}
-
-.project-card:hover::before { transform: scaleX(1); }
-
-.project-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(255,77,125,0.3);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 30px rgba(255,77,125,0.08);
-}
-
-.project-card .card-glow {
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,77,125,0.15), transparent 70%);
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity 0.4s;
+  inset: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%, rgba(255,255,255,0.05) 100%);
   pointer-events: none;
-  filter: blur(30px);
 }
 
-.project-card:hover .card-glow {
-  opacity: 1;
-  animation: glowPulse 2s ease-in-out infinite;
-}
-
-@keyframes glowPulse {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
-  50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
-}
-
-.project-card-click-hint {
+.projets-mini-card::after {
+  content: '';
   position: absolute;
-  top: 1.2rem;
-  right: 1.2rem;
-  font-size: 0.7rem;
-  color: rgba(255,255,255,0.25);
-  font-family: 'Space Mono', monospace;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: color 0.3s;
+  top: 12px; left: 12px;
+  right: 12px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.25);
 }
 
-.project-card:hover .project-card-click-hint {
-  color: var(--pink-hot);
+.projets-mini-card:hover {
+  transform: translateX(calc(-50% + var(--card-offset))) rotate(0deg) scale(1.12);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 25px color-mix(in srgb, var(--card-color) 40%, transparent);
+  z-index: 10;
 }
 
-.project-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.6rem;
-  margin-bottom: 1.2rem;
-  background: rgba(255,77,125,0.1);
-}
-
-.project-card-title {
+.projets-cta-btn {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, #f5c542, #ff6b8a);
+  color: #1a1a2e;
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.35rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 20px rgba(245,197,66,0.25);
+  letter-spacing: 0.3px;
 }
 
-.project-tagline {
-  font-size: 0.9rem;
-  color: var(--pink-hot);
-  font-weight: 500;
-  margin-bottom: 0.8rem;
-  font-style: italic;
+.projets-cta-btn:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 35px rgba(245,197,66,0.4), 0 0 20px rgba(255,107,138,0.3);
 }
 
-.project-desc {
-  font-size: 0.92rem;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.6);
-  margin-bottom: 1.2rem;
-}
-
-.project-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
+.projets-cta-hint {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.5px;
+  text-align: center;
 }
 
 .tag {
@@ -1565,7 +1533,9 @@ footer a {
   .hero-avatar-glow { width: 280px; height: 280px; }
   .process-steps { grid-template-columns: repeat(2, 1fr); }
   .process-steps::before { display: none; }
-  .projects-grid { grid-template-columns: 1fr; }
+  .projets-mini-card { width: 90px; height: 130px; }
+  .projets-preview-cards { height: 170px; }
+  .projets-cta-btn { font-size: 1rem; padding: 0.9rem 2rem; }
   .cta-box { padding: 2.5rem 1.5rem; }
   .coming-soon-grid { grid-template-columns: 1fr; }
   .modal-hero { flex-direction: column; padding: 2rem 1.5rem 0; }
@@ -1866,120 +1836,20 @@ footer a {
   <div class="section-header reveal">
     <div class="section-tag">🍫 Portfolio</div>
     <h2 class="section-title">Mes Créations</h2>
-    <p class="section-subtitle">Chaque projet résout un vrai problème. Pas de gadget, que du concret.<br>Clique sur un projet pour en savoir plus.</p>
+    <p class="section-subtitle">16 projets. 16 cartes holographiques. Une collection.</p>
   </div>
 
-  <div class="projects-grid">
-
-    <div class="project-card reveal" onclick="openModal('boardai')">
-      <span class="project-badge badge-favori">⭐ Favori</span>
-      <span class="badge-price price-3">€€€</span>
-      <span class="project-card-click-hint">Voir le projet →</span>
-      <div class="project-icon">🎯</div>
-      <h3 class="project-card-title">Board AI</h3>
-      <p class="project-tagline">Ton comité de direction IA</p>
-      <p class="project-desc">Prends des décisions stratégiques éclairées grâce à un board d'experts IA aux personnalités distinctes. Chacun analyse ta situation sous un angle différent.</p>
-      <div class="project-tags">
-        <span class="tag">Intelligence Artificielle</span>
-        <span class="tag">Prise de décision</span>
-        <span class="tag">Multi-agents</span>
-      </div>
+  <div class="projets-cta-wrapper reveal">
+    <div class="projets-preview-cards">
+      <div class="projets-mini-card" style="--card-color: #a855f7; --card-rotation: -12deg; --card-offset: -60px;"></div>
+      <div class="projets-mini-card" style="--card-color: #f43f8a; --card-rotation: -4deg; --card-offset: -20px;"></div>
+      <div class="projets-mini-card" style="--card-color: #06d6a0; --card-rotation: 4deg; --card-offset: 20px;"></div>
+      <div class="projets-mini-card" style="--card-color: #38bdf8; --card-rotation: 12deg; --card-offset: 60px;"></div>
     </div>
 
-    <div class="project-card reveal" onclick="openModal('vocal')">
-      <span class="badge-price">€€</span>
-      <span class="project-card-click-hint">Voir le projet →</span>
-      <div class="project-icon">🎙️</div>
-      <h3 class="project-card-title">Agent Vocal Telegram</h3>
-      <p class="project-tagline">Dicte, c'est noté dans Notion</p>
-      <p class="project-desc">Envoie un message vocal sur Telegram, l'agent transcrit, détecte tes tâches (même plusieurs dans un seul message) et les range dans ton Notion. Magique.</p>
-      <div class="project-tags">
-        <span class="tag">Vocal → Texte</span>
-        <span class="tag">Notion API</span>
-        <span class="tag">Telegram Bot</span>
-      </div>
-    </div>
+    <a href="/cartes/" class="projets-cta-btn">Découvrir la collection →</a>
 
-    <div class="project-card reveal" onclick="openModal('linkibara')">
-      <span class="badge-price price-3">€€€</span>      <span class="project-card-click-hint">Voir le projet →</span>
-      <div class="project-icon">🔗</div>
-      <h3 class="project-card-title">LinkiBara</h3>
-      <p class="project-tagline">Ton coach en prospection LinkedIn</p>
-      <p class="project-desc">Deux modes : « Chasse » pour trouver tes prospects idéaux, et « Récolte » pour moissonner les connexions. Tout ça avec un ton fun et zéro jargon technique.</p>
-      <div class="project-tags">
-        <span class="tag">LinkedIn</span>
-        <span class="tag">Automatisation</span>
-        <span class="tag">Prospection</span>
-      </div>
-    </div>
-
-    <div class="project-card reveal" onclick="openModal('leveinard')">
-      <span class="badge-price">€€</span>      <span class="project-card-click-hint">Voir le projet →</span>
-      <div class="project-icon">💊</div>
-      <h3 class="project-card-title">Leveinard</h3>
-      <p class="project-tagline">La santé de ta famille, centralisée</p>
-      <p class="project-desc">Une app santé familiale qui centralise les infos médicales, les rendez-vous et le suivi de toute la famille en un seul endroit simple et accessible.</p>
-      <div class="project-tags">
-        <span class="tag">Santé</span>
-        <span class="tag">Famille</span>
-        <span class="tag">Suivi médical</span>
-      </div>
-    </div>
-
-    <div class="project-card reveal" onclick="openModal('milarepa')">
-      <span class="badge-price price-3">€€€</span>      <span class="project-card-click-hint">Voir le projet →</span>
-      <div class="project-icon">🧘</div>
-      <h3 class="project-card-title">Milarepa</h3>
-      <p class="project-tagline">Converse avec un maître spirituel tibétain</p>
-      <p class="project-desc">Un chatbot RAG entraîné sur les textes du célèbre yogi-poète tibétain. Pose tes questions existentielles, il te répond avec sagesse — et uniquement depuis les sources.</p>
-      <div class="project-tags">
-        <span class="tag">RAG / LLM</span>
-        <span class="tag">Spiritualité</span>
-        <span class="tag">Chatbot</span>
-      </div>
-    </div>
-
-    <div class="project-card reveal" onclick="openModal('declic')">
-      <span class="badge-price">€</span>      <span class="project-card-click-hint">Voir le projet →</span>
-      <div class="project-icon">📸</div>
-      <h3 class="project-card-title">Déclic</h3>
-      <p class="project-tagline">Tes photos racontent une histoire</p>
-      <p class="project-desc">Upload tes photos et l'IA te génère une histoire créative unique inspirée de tes images. Un souvenir qui prend vie à travers les mots.</p>
-      <div class="project-tags">
-        <span class="tag">Vision IA</span>
-        <span class="tag">Créativité</span>
-        <span class="tag">Storytelling</span>
-      </div>
-    </div>
-
-    <div class="project-card reveal" onclick="openModal('auberge')">
-      <span class="badge-price">€</span>      <span class="project-card-click-hint">Voir le projet →</span>
-      <div class="project-icon">🏨</div>
-      <h3 class="project-card-title">Auberge du Trône</h3>
-      <p class="project-tagline">Vitrine digitale pour l'hôtellerie</p>
-      <p class="project-desc">Un site internet sur mesure pour une auberge, conçu pour refléter l'identité du lieu et convertir les visiteurs en réservations.</p>
-      <div class="project-tags">
-        <span class="tag">Site Web</span>
-        <span class="tag">Hôtellerie</span>
-        <span class="tag">Vitrine</span>
-      </div>
-    </div>
-
-    <div class="project-card reveal" onclick="window.location.href='/workai/'">
-      <span class="project-badge badge-favori">🆕 Nouveau</span>
-      <span class="badge-price price-3">€€€</span>
-      <span class="project-card-click-hint">Découvrir workAI →</span>
-      <div class="project-icon">💼</div>
-      <h3 class="project-card-title">workAI</h3>
-      <p class="project-tagline">Ton logiciel de gestion sur mesure</p>
-      <p class="project-desc">Un logiciel tout-en-un propulsé par l'IA : CRM, facturation, emailing, e-learning, e-commerce et plus. Conçu sur mesure pour ton activité, à prix cassé.</p>
-      <div class="project-tags">
-        <span class="tag">SaaS</span>
-        <span class="tag">Intelligence Artificielle</span>
-        <span class="tag">Gestion</span>
-      </div>
-    </div>
-
+    <p class="projets-cta-hint">Effets holographiques interactifs &bull; Retourne chaque carte</p>
   </div>
 </section>
 
